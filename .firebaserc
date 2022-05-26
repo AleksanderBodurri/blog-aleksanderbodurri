@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "aleksanderbodurri-eefbe": {
+      "hosting": {
+        "blog": [
+          "aleksanderbodurri-eefbe"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "aleksanderbodurri-eefbe"
+  }
+}

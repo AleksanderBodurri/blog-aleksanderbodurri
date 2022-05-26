@@ -172,6 +172,35 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": true,
+            "ssr": false,
+            "browserTarget": "blog:build:production",
+            "firebaseProject": "aleksanderbodurri-eefbe",
+            "firebaseHostingSite": "aleksanderbodurri-eefbe",
+            "serverTarget": "blog:server:production",
+            "prerenderTarget": "blog:prerender:production"
+          }
+        },
+        "app-shell": {
+          "builder": "@angular-devkit/build-angular:app-shell",
+          "options": {
+            "route": "shell"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "blog:build:production",
+              "serverTarget": "blog:server:production"
+            },
+            "development": {
+              "browserTarget": "blog:build:development",
+              "serverTarget": "blog:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

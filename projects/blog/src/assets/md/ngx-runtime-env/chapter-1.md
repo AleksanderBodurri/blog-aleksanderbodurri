@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/AleksanderBodurri/ngx-runtime-env/raw/main/logo.svg?" alt="ngx-runtime-env" width="350"/>
+  <img src="https://github.com/AleksanderBodurri/ngx-runtime-env/raw/main/logo.svg?" alt="ngx-runtime-env" height="350" width="350"/>
 </p>
 
 # What problem does this library solve?

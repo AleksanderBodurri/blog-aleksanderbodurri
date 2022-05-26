@@ -27,7 +27,7 @@ const definePost = (date: string, title: string, slug: string, sectionNames: str
   posts.push(new Post(new Date(date), title, slug, summaryPath, contentPaths, tags));
 };
 
-definePost('2022-05-25T23:12:00.000Z', 'Ngx Runtime Env', 'ngx-runtime-env', ['chapter_1'], ['library']);
+definePost('2022-05-25T23:12:00.000Z', 'Ngx Runtime Env', 'ngx-runtime-env', ['chapter-1'], ['library']);
 
 posts = posts.sort((a, b) => b.date.getTime() - a.date.getTime());
 console.log({ posts });
