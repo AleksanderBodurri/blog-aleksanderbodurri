@@ -36,10 +36,6 @@ const routes: Routes = [
     path: 'posts',
     component: PostsComponent
   },
-  {
-    path: 'posts/:slug',
-    component: PostComponent
-  },
   ...GENERATED_ROUTES
 ];
 
