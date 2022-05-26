@@ -1,0 +1,29 @@
+<div class="author-name" aria-label="Aleksander Bodurri">
+    <img src="assets/angular.svg" alt="The Angular logo.">
+    <div class="partial-name">
+        <h1 aria-label="The name Aleksander Bodurri but with the A missing. The Angular Logo in the previous line acts as the A">
+          leksander Bodurri
+        </h1>
+    </div>
+</div>
+<section>
+  <aside>
+      <figure>
+          <img class="author" src="assets/alex2.png" alt="A picture of Alex Bodurri">
+          <figcaption>
+          </figcaption>
+          <hr>
+          <figcaption>Angular Team Member</figcaption>
+          <hr>
+          <figcaption>Developer - Verto Health</figcaption>
+          <hr>
+        </figure>        
+  </aside>
+  <article>
+    <ul>
+      <li *ngFor="let post of posts">
+        <blog-post-card [post]="post"></blog-post-card>
+      </li>
+    </ul>
+  </article>
+</section>

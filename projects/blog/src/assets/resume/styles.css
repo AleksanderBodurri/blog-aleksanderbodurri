@@ -1,0 +1,36 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100%;
+}
+
+main, .about-me {
+    margin: auto;
+    width: 75%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0.5rem 0;
+}
+
+.menu {
+    display: block;
+    position: fixed;
+    top: 45%;
+    left: 25px;
+    padding: 8px 1rem;
+}
+
+.menu ul li {
+    margin-bottom: 1rem;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}

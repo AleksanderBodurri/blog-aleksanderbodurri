@@ -1,0 +1,12 @@
+html {
+    color: #ffffff;
+    background-color: #303030;
+}
+
+a {
+    color: aqua;
+}
+
+a:hover {
+    color: turquoise;
+}

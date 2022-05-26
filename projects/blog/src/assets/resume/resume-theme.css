@@ -1,0 +1,128 @@
+/* 2 Column layout theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('dark.css');
+
+html {
+    font-family: 'Raleway', sans-serif;
+}
+
+main, .about-me {
+    display: flex;
+}
+
+.about-me {
+    margin-top: 1rem;
+    height: 20%;
+}
+
+main {
+    height: 80%;
+    overflow-y: auto;
+}
+
+.about-me {
+    justify-content: space-between;
+}
+
+.contact-me li {
+    list-style: none;
+}
+
+.description h1 {
+    color: aqua;
+}
+
+.description h3 {
+    color: tomato;
+}
+
+.description h4 {
+}
+
+.contact-me {
+
+}
+
+.experience {
+    flex-basis: 100%;
+    margin-right: 2rem;
+}
+
+.work {
+    flex-basis: 60%;
+}
+
+.passion {
+    flex-basis: 80%;
+}
+
+.tech-i-love ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.tech-i-love li {
+    list-style: none;
+    border: 1px solid #464646;
+    margin: 8px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: tomato;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1.25px;
+    min-height: 30px;
+}
+
+.tech-i-love li:before {
+    content: "";
+    display: none;
+}
+
+main article ul li:before {
+    display: inline-block;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: tomato;
+    border-radius: 50%;
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+
+article ul li {
+    margin-bottom: 0.5rem;
+}
+
+.work article h2 {
+    font-size: 1.35rem;
+}
+
+.work article h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.work article h6 {
+    color: tomato;
+    font-size: 0.7rem;
+}
+
+.open-source-contributions article header {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.menu {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+}

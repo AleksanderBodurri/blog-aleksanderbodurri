@@ -1,0 +1,111 @@
+section {
+  display: flex;
+  width: 75%;
+  height: 100%;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+
+  aside {
+    width: 280px;
+  }
+
+  article {
+    width: 100%;
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+}
+
+figure {
+  width: 200px;
+  border-radius: 8px;
+  padding: 1rem;
+
+  figcaption {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  .author {
+    width: calc(200px - 2rem);
+    border-radius: 50%;
+    padding: 1rem;
+    background: #2b2c30;
+    box-shadow: inset 8px 0px 1px black, inset 0px 8px 1px black, inset 0px -8px 1px black, inset -61px 0px 1px #181a1c;
+  }
+}
+
+.author-name {
+  display: block;
+  height: 40px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
+
+  @keyframes big-boi {
+    from {
+      transform: scale(1) rotateY(0deg);
+    }
+
+    50% {
+      transform: scale(1.75) rotateY(180deg);
+    }
+
+    to {
+      transform: scale(1) rotateY(360deg);
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      width: 0px;
+    }
+    
+    50% {
+      width: 0px;
+    }
+
+    to {
+      width: 592px;
+    }
+  }
+  
+  .partial-name {
+    display: inline-flex;
+    position: relative;
+    bottom: 26px;
+    height: 65px;
+    align-items: center;
+    overflow: hidden;
+    animation: slide-in 3s;
+  }
+
+  img {
+    display: inline-block;
+    width: 100px;
+    aspect-ratio: 1;
+    position: relative;
+    z-index: 1000;
+    left: 24px;
+    animation: big-boi 2s;
+  }
+
+  h1 {
+    display: inline-block;
+    font-size: 4rem;
+    margin: 0;
+    white-space: pre;
+  }
+}
+
+:host {
+  display: block;
+  height: calc(100% - 64px);
+}

@@ -1,0 +1,43 @@
+@import url('resume-theme.css');
+@import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
+
+html {
+    background: linear-gradient(to bottom, orange, red 120%);
+    font-family: 'Coiny', cursive;
+}
+
+hr {
+    width: 0;
+}
+
+.menu hr {
+    width: 100%;
+}
+
+body {
+    overscroll-behavior-y: none;
+}
+
+.work article h3 {
+    color: rgb(71, 255, 80);
+}
+
+.work article h6 {
+    color: greenyellow;
+}
+
+.tech-i-love li {
+    background-color: #fd8266;
+}
+
+a {
+    color: greenyellow;
+}
+
+a:hover {
+    color: lightgreen;
+}
+
+.description h1 {
+    color: #3464ff;;
+}

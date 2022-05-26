@@ -27,6 +27,7 @@
     "@angular/router": "~13.1.1",
     "@nguniversal/express-engine": "13.0.2",
     "express": "^4.15.2",
+    "ngx-markdown": "^13.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

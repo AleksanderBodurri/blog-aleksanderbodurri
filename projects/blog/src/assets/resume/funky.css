@@ -1,0 +1,22 @@
+@import url('resume-theme.css');
+
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+
+html {
+    color: #ff4dca;
+    font-family: 'Hachi Maru Pop', cursive;
+    font-size: 14px;
+    background-color: #040614;
+}
+
+.work article h2 {
+    color: rgb(105, 247, 105);
+}
+
+.work article h3 {
+    color: rgb(231, 238, 130);
+}
+
+.work article h6 {
+   color: rgb(141, 248, 248);
+}

@@ -1,5 +1,4 @@
-
-@use '@angular/material' as mat;
+@use '@angular/material'as mat;
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
 
@@ -11,22 +10,17 @@ $blog-primary: mat.define-palette(mat.$indigo-palette);
 $blog-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $blog-warn: mat.define-palette(mat.$red-palette);
 
-$light-theme: mat.define-light-theme((
-  color: (
-    primary: $blog-primary,
-    accent: $blog-accent,
-    warn: $blog-warn,
-  ),
-  typography: $blog-typography-config,
-));
+$light-theme: mat.define-light-theme((color: (primary: $blog-primary,
+      accent: $blog-accent,
+      warn: $blog-warn,
+    ),
+    typography: $blog-typography-config,
+  ));
 
-$dark-theme: mat.define-dark-theme((
-  color: (
-    primary: $blog-primary,
-    accent: $blog-accent,
-    warn: $blog-warn,
-  )
-));
+$dark-theme: mat.define-dark-theme((color: (primary: $blog-primary,
+      accent: $blog-accent,
+      warn: $blog-warn,
+    )));
 
 @include mat.all-component-themes($light-theme);
 
@@ -35,7 +29,59 @@ $dark-theme: mat.define-dark-theme((
 //   @include mat.all-component-themes($dark-theme);
 // }
 
+body {
+  background-color: #f7f8ff;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+markdown {
+  table {
+    margin: 0 auto;
+  }
+
+  table {
+    color: #333;
+    background: white;
+    border: 1px solid grey;
+    font-size: 12pt;
+    border-collapse: collapse;
+  }
+
+  table thead th,
+  table tfoot th {
+    color: #777;
+    background: rgba(0, 0, 0, .1);
+  }
+
+  table caption {
+    padding: .5em;
+  }
+
+  table th,
+  table td {
+    padding: .5em;
+    border: 1px solid lightgrey;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    background-color: #272822;
+    color: #ecece6;
+    padding: 1px 4px;
+  }
+}
