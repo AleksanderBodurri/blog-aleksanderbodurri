@@ -8,23 +8,6 @@ section {
 
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    padding-top: 4rem;
-  }
-
-  @media screen and (max-width: 700px) {
-    padding-top: 6rem;
-  }
-
-  @media screen and (max-width: 500px) {
-    padding-top: 12rem;
-  }
-
-  @media screen and (max-width: 400px) {
-    padding-top: 14rem;
-  }
-
-  @media screen and (min-width: 700px) and (max-width: 900px) {
-    padding-top: 8rem;
   }
 
   aside {
@@ -34,14 +17,35 @@ section {
   article {
     width: 100%;
 
-    ul {
+    .posts {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      margin: 0;
 
       @media screen and (max-width: 700px) {
         padding: 0;
+        display: none;
+      }
+    }
+
+    .blog-links {
+      @media screen and (min-width: 700px) {
+        display: none;
+      }
+
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      font-size: 1.5rem;
+
+      a {
+        text-decoration: none;
+        color: #4da1ff;
       }
     }
   }
@@ -52,8 +56,8 @@ figure {
   border-radius: 8px;
   padding: 1rem;
 
-  @media screen and (max-width: 500px) {
-    padding: 0;
+  @media screen and (max-width: 700px) {
+    display: none;
   }
 
   figcaption {
@@ -62,11 +66,14 @@ figure {
   }
 
   .author {
-    width: calc(200px - 2rem);
+    width: 200px;
     border-radius: 50%;
-    padding: 1rem;
-    background: #2b2c30;
-    box-shadow: inset 8px 0px 1px black, inset 0px 8px 1px black, inset 0px -8px 1px black, inset -61px 0px 1px #181a1c;
+    padding: 4px 4px 0;
+    background: #e1e6ff;
+
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
   }
 }
 
@@ -77,8 +84,16 @@ figure {
   width: 100%;
   text-align: center;
   margin-top: 3rem;
-  
+
   @media screen and (max-width: 1000px) {
+    .partial-name {
+      h1 {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @media screen and (max-height: 600px) {
     display: none;
   }
 
@@ -96,20 +111,26 @@ figure {
     }
   }
 
+  --slide-width: 592px;
+
+  @media (max-width: 1000px) {
+    --slide-width: 148px;
+  }
+
   @keyframes slide-in {
     from {
       width: 0px;
     }
-    
+
     50% {
       width: 0px;
     }
 
     to {
-      width: 592px;
+      width: var(--slide-width);
     }
   }
-  
+
   .partial-name {
     display: inline-flex;
     position: relative;
@@ -128,6 +149,11 @@ figure {
     z-index: 1000;
     left: 24px;
     animation: big-boi 2s;
+
+    @media screen and (max-width: 1000px) {
+      width: 60px;
+      left: 8px;
+    }
   }
 
   h1 {
@@ -140,5 +166,5 @@ figure {
 
 :host {
   display: block;
-  height: calc(100% - 64px);
+  height: calc(100% - 100px);
 }

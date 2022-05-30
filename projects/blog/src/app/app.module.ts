@@ -3,52 +3,47 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { LandingComponent } from './routes/landing/landing.component';
 import { NavbarComponent } from './utility/navbar.component';
 import { PostsComponent } from './routes/posts/posts.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PostCardComponent } from './utility/post-card.component';
-import { PostComponent } from './routes/post/post.component';
 import { RouterModule } from '@angular/router';
-
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-
-// MAGIC_TARGET_FOR_TOOLING
-
-const GENERATED_ROUTES: Routes = [];
-const GENERATED_DECLARATIONS: any[] = [];
+import { GENERATED_ROUTES } from './generated-routes';
+import { AboutComponent } from './routes/about/about.component';
+import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: LandingComponent,
-    pathMatch: "full"
+    pathMatch: 'full',
   },
   {
     path: 'posts',
-    component: PostsComponent
+    component: PostsComponent,
   },
-  ...GENERATED_ROUTES
+  {
+    path: 'about',
+    component: AboutComponent,
+  },
+  ...GENERATED_ROUTES,
 ];
 
-const routerModuleImport = RouterModule.forRoot(routes, { 
-  initialNavigation: 'enabledBlocking'
+const routerModuleImport = RouterModule.forRoot(routes, {
+  initialNavigation: 'enabledBlocking',
+  preloadingStrategy: QuicklinkStrategy,
 });
 
 @NgModule({
   imports: [routerModuleImport],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}
 
 @NgModule({
   declarations: [
@@ -56,25 +51,22 @@ export class AppRoutingModule { }
     NavbarComponent,
     LandingComponent,
     PostsComponent,
-    PostComponent,
     PostCardComponent,
-    ...GENERATED_DECLARATIONS
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    QuicklinkModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule,
-    MatButtonModule,
     MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     HttpClientModule,
-    MarkdownModule.forRoot({ loader: HttpClient, sanitize: SecurityContext.NONE }),
-    RouterModule
+    MarkdownModule.forRoot({
+      loader: HttpClient,
+      sanitize: SecurityContext.NONE,
+    }),
+    RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,28 +1,39 @@
-@use '@angular/material'as mat;
+@use "@angular/material" as mat;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap");
 
-$blog-typography-config: mat.define-typography-config($font-family: 'Poppins');
+$blog-typography-config: mat.define-typography-config(
+  $font-family: "Poppins",
+);
 
-@include mat.core($blog-typography-config);
+@include mat.toolbar-typography($blog-typography-config);
 
 $blog-primary: mat.define-palette(mat.$indigo-palette);
 $blog-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $blog-warn: mat.define-palette(mat.$red-palette);
 
-$light-theme: mat.define-light-theme((color: (primary: $blog-primary,
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $blog-primary,
       accent: $blog-accent,
       warn: $blog-warn,
     ),
     typography: $blog-typography-config,
-  ));
+  )
+);
 
-$dark-theme: mat.define-dark-theme((color: (primary: $blog-primary,
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $blog-primary,
       accent: $blog-accent,
       warn: $blog-warn,
-    )));
+    ),
+  )
+);
 
-@include mat.all-component-themes($light-theme);
+@include mat.toolbar-theme($light-theme);
 
 // todo(aleksanderbodurri): Dark mode styles
 // body.dark {
@@ -31,8 +42,8 @@ $dark-theme: mat.define-dark-theme((color: (primary: $blog-primary,
 
 body {
   background-color: #f7f8ff;
+  overflow: hidden;
 }
-
 
 html,
 body {
@@ -44,9 +55,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-
-
-markdown {
+markdown,
+pre {
   table {
     margin: 0 auto;
   }
@@ -62,16 +72,16 @@ markdown {
   table thead th,
   table tfoot th {
     color: #777;
-    background: rgba(0, 0, 0, .1);
+    background: rgba(0, 0, 0, 0.1);
   }
 
   table caption {
-    padding: .5em;
+    padding: 0.5em;
   }
 
   table th,
   table td {
-    padding: .5em;
+    padding: 0.5em;
     border: 1px solid lightgrey;
   }
 
@@ -79,9 +89,11 @@ markdown {
     max-width: 100%;
   }
 
-  code {
-    background-color: #272822;
-    color: #ecece6;
+  code:not([class]) {
+    color: #da892d;
+    border: 1px solid #434548;
+    background-color: #2a2d30;
+    border-radius: 3px;
     padding: 1px 4px;
   }
 }

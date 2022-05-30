@@ -2,29 +2,39 @@ import { Component } from '@angular/core';
 
 const navBarStyles = `
   blog-navbar {
-    position: fixed;
-    z-index: 10000;
   }
-`
+`;
+const mainStyles = `
+  main {
+    overflow: auto;
+    height: 100vh;
 
-const routerOutletStyles = `
-  router-outlet {
-    display: block;
-    padding-top: 64px;
+    footer {
+      height: 100px;
+      
+      p {
+        text-align: center;
+        color: #aaaaaa;
+      }
+    }
   }
-`
+`;
 
 @Component({
   selector: 'blog-root',
   template: `
     <blog-navbar></blog-navbar>
-    <router-outlet></router-outlet>
+    <main>
+      <router-outlet></router-outlet>
+
+      <footer>
+        <p>Copyright {{ year.getFullYear() }}</p>
+      </footer>
+    </main>
   `,
-  styles: [
-    navBarStyles,
-    routerOutletStyles
-  ]
+  styles: [mainStyles, navBarStyles],
 })
 export class AppComponent {
   title = 'Aleksander Bodurri';
+  year = new Date();
 }

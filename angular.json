@@ -35,14 +35,23 @@
             ],
             "styles": [
               "projects/blog/src/styles.scss",
-              "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css"
+              {
+                "input": "node_modules/prismjs/themes/prism-okaidia.css",
+                "inject": false
+              },
+              {
+                "input": "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
+                "inject": false
+              }
             ],
             "scripts": [
-              "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
+              "node_modules/marked/marked.min.js",
               "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
-              "node_modules/prismjs/components/prism-typescript.min.js"
+              "node_modules/prismjs/components/prism-javascript.min.js",
+              "node_modules/prismjs/components/prism-jsx.min.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/components/prism-tsx.min.js"
             ]
           },
           "configurations": {
@@ -65,7 +74,8 @@
                   "with": "projects/blog/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "sourceMap": true
             },
             "development": {
               "buildOptimizer": false,
@@ -108,9 +118,7 @@
               "projects/blog/src/favicon.ico",
               "projects/blog/src/assets"
             ],
-            "styles": [
-              "projects/blog/src/styles.scss"
-            ],
+            "styles": ["projects/blog/src/styles.scss"],
             "scripts": []
           }
         },
@@ -157,9 +165,7 @@
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {
@@ -184,23 +190,6 @@
             "serverTarget": "blog:server:production",
             "prerenderTarget": "blog:prerender:production"
           }
-        },
-        "app-shell": {
-          "builder": "@angular-devkit/build-angular:app-shell",
-          "options": {
-            "route": "shell"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "blog:build:production",
-              "serverTarget": "blog:server:production"
-            },
-            "development": {
-              "browserTarget": "blog:build:development",
-              "serverTarget": "blog:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }
