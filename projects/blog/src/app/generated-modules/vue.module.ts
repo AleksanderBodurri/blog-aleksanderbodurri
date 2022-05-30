@@ -287,10 +287,7 @@ Copyright (c) 2013-present, Yuxi (Evan) You
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (true) {
-      this.meta.addTag({
-        name: 'description',
-        content: 'This is an article about Angular Meta service',
-      });
+      this.meta.addTag({ name: 'description', content: 'Vue is cool.' });
     }
 
     if (true) {

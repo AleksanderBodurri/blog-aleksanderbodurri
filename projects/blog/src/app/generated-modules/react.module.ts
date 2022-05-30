@@ -218,10 +218,7 @@ React is [MIT licensed](./LICENSE).
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (true) {
-      this.meta.addTag({
-        name: 'description',
-        content: 'This is an article about Angular Meta service',
-      });
+      this.meta.addTag({ name: 'description', content: 'React is cool.' });
     }
 
     if (true) {

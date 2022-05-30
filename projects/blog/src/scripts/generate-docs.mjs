@@ -78,7 +78,9 @@ export class ${toUpperCamelCase(file)}Component {
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (${metadata["description"].length > 0}) {
-      this.meta.addTag({ name: 'description', content: 'This is an article about Angular Meta service' });
+      this.meta.addTag({ name: 'description', content: '${
+        metadata["description"]
+      }' });
     }
 
     if (${metadata["tags"].length > 0}) {

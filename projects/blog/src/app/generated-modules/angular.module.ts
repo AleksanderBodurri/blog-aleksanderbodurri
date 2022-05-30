@@ -330,10 +330,7 @@ Join the conversation and help the community.
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (true) {
-      this.meta.addTag({
-        name: 'description',
-        content: 'This is an article about Angular Meta service',
-      });
+      this.meta.addTag({ name: 'description', content: 'Angular is cool.' });
     }
 
     if (true) {
