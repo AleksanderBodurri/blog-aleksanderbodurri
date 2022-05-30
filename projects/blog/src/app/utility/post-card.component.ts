@@ -6,7 +6,7 @@ import { Post } from '../routes/posts/define-post';
 @Component({
   selector: 'blog-post-card',
   template: `
-    <a *ngIf="post" routerLink="/posts/{{ post.slug }}">
+    <a *ngIf="post" routerLink="/posts/{{ post.slug }}" (click)="scrollToTop()">
       <article class="blog-post-card-link">
         <header>
           <h1>
@@ -65,5 +65,9 @@ export class PostCardComponent implements OnInit {
         this.post?.summary ?? ''
       );
     }
+  }
+
+  scrollToTop(): void {
+    (window as any).scrollTo(0, 0);
   }
 }

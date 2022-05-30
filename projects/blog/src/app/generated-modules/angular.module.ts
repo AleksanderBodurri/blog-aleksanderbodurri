@@ -6,6 +6,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { MarkdownService } from 'ngx-markdown';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'blog-angular',
@@ -120,8 +121,8 @@ import { MarkdownService } from 'ngx-markdown';
       [stackoverflow]: https://stackoverflow.com/questions/tagged/angular
       [youtube]: https://youtube.com/angular [meetup]:
       https://www.meetup.com/find/?keywords=angular [animations]:
-      https://angular.io/guide/animations</markdown
-    >
+      https://angular.io/guide/animations
+    </markdown>
     <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
   `,
   styles: [
@@ -318,13 +319,26 @@ Join the conversation and help the community.
 [stackoverflow]: https://stackoverflow.com/questions/tagged/angular
 [youtube]: https://youtube.com/angular
 [meetup]: https://www.meetup.com/find/?keywords=angular
-[animations]: https://angular.io/guide/animations`;
+[animations]: https://angular.io/guide/animations
+`;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
-    private markdownService: MarkdownService
+    private markdownService: MarkdownService,
+    private meta: Meta
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+
+    if (true) {
+      this.meta.addTag({
+        name: 'description',
+        content: 'This is an article about Angular Meta service',
+      });
+    }
+
+    if (true) {
+      this.meta.addTag({ name: 'keywords', content: 'Angular' });
+    }
 
     if (!this.isBrowser) {
       this.content = this.markdownService.compile(this.content);

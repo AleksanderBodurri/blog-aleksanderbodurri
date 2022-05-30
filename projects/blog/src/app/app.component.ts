@@ -6,8 +6,7 @@ const navBarStyles = `
 `;
 const mainStyles = `
   main {
-    overflow: auto;
-    height: 100vh;
+    overflow-x: auto;
 
     footer {
       height: 100px;

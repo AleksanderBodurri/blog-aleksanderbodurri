@@ -77,13 +77,20 @@ figure {
   }
 }
 
+$author-name-height: 40px;
+$author-name-margin: 60px;
+
+.author-name-block {
+  height: $author-name-height;
+  margin: $author-name-margin 0;
+}
+
 .author-name {
   display: block;
-  height: 40px;
+  height: cacl($author-name-height + $author-name-margin);
   position: absolute;
   width: 100%;
   text-align: center;
-  margin-top: 3rem;
 
   @media screen and (max-width: 1000px) {
     .partial-name {
@@ -111,7 +118,7 @@ figure {
     }
   }
 
-  --slide-width: 592px;
+  --slide-width: 615px;
 
   @media (max-width: 1000px) {
     --slide-width: 148px;

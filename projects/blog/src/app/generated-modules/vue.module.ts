@@ -6,6 +6,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { MarkdownService } from 'ngx-markdown';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'blog-vue',
@@ -130,8 +131,8 @@ import { MarkdownService } from 'ngx-markdown';
       }}{{ '<' }}/a{{ '>' }}
 
       ## License [MIT](https://opensource.org/licenses/MIT) Copyright (c)
-      2013-present, Yuxi (Evan) You</markdown
-    >
+      2013-present, Yuxi (Evan) You
+    </markdown>
     <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
   `,
   styles: [
@@ -275,13 +276,26 @@ Thank you to all the people who already contributed to Vue!
 
 [MIT](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2013-present, Yuxi (Evan) You`;
+Copyright (c) 2013-present, Yuxi (Evan) You
+`;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
-    private markdownService: MarkdownService
+    private markdownService: MarkdownService,
+    private meta: Meta
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+
+    if (true) {
+      this.meta.addTag({
+        name: 'description',
+        content: 'This is an article about Angular Meta service',
+      });
+    }
+
+    if (true) {
+      this.meta.addTag({ name: 'keywords', content: 'Vue' });
+    }
 
     if (!this.isBrowser) {
       this.content = this.markdownService.compile(this.content);

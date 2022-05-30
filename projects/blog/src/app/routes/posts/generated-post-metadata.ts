@@ -5,28 +5,31 @@ export const postMetaData: PostMetaData[] = [
   {
     date: '2022-05-28T23:12:00.000Z',
     title: 'Angular',
-    tags: [],
+    tags: ['Angular'],
+    description: 'Angular is cool.',
     slug: 'angular',
     sectionNames: ['chapter-1.md'],
     summary:
-      'Angular is a development platform, built on [TypeScript](https://www.typescriptlang.org).\nAs a platform, Angular includes:\n\n*   A component-based framework for building scalable web applications\n*   A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more\n*   A suite of developer tools to help you develop, build, test, and update your code\n',
+      'Angular is a development platform, built on [TypeScript](https://www.typescriptlang.org).\nAs a platform, Angular includes:\n\n- A component-based framework for building scalable web applications\n- A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more\n- A suite of developer tools to help you develop, build, test, and update your code\n',
   },
   {
     date: '2022-05-27T23:12:00.000Z',
     title: 'React',
-    tags: [],
+    tags: ['React'],
+    description: 'React is cool.',
     slug: 'react',
     sectionNames: ['chapter-1.md'],
     summary:
-      'React is a JavaScript library for building user interfaces.\n\n* **Declarative:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug.',
+      'React is a JavaScript library for building user interfaces.\n\n- **Declarative:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug.\n',
   },
   {
     date: '2022-05-26T23:12:00.000Z',
     title: 'Vue',
-    tags: [],
+    tags: ['Vue'],
+    description: 'Vue is cool.',
     slug: 'vue',
     sectionNames: ['chapter-1.md'],
     summary:
-      '## Introduction\n\nVue (pronounced `/vjuː/`, like view) is a **progressive framework** for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.',
+      '## Introduction\n\nVue (pronounced `/vjuː/`, like view) is a **progressive framework** for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.\n',
   },
 ];

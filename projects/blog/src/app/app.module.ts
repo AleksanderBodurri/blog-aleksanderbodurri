@@ -2,7 +2,6 @@ import { SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LandingComponent } from './routes/landing/landing.component';
 import { NavbarComponent } from './utility/navbar.component';
@@ -57,7 +56,6 @@ export class AppRoutingModule {}
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     QuicklinkModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     MatToolbarModule,
     HttpClientModule,
     MarkdownModule.forRoot({

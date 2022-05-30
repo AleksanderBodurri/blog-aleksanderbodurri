@@ -26,7 +26,6 @@
             "outputPath": "dist/blog/browser",
             "index": "projects/blog/src/index.html",
             "main": "projects/blog/src/main.ts",
-            "polyfills": "projects/blog/src/polyfills.ts",
             "tsConfig": "projects/blog/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -110,7 +109,6 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "projects/blog/src/test.ts",
-            "polyfills": "projects/blog/src/polyfills.ts",
             "tsConfig": "projects/blog/tsconfig.spec.json",
             "karmaConfig": "projects/blog/karma.conf.js",
             "inlineStyleLanguage": "scss",
