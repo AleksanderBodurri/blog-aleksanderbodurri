@@ -2,7 +2,6 @@ import { SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { LandingComponent } from './routes/landing/landing.component';
 import { NavbarComponent } from './utility/navbar.component';
 import { PostsComponent } from './routes/posts/posts.component';
@@ -16,18 +15,23 @@ import { GENERATED_ROUTES } from './generated-routes';
 import { AboutComponent } from './routes/about/about.component';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
+const defaultTitle = 'Aleksander Bodurri | Blog';
+
 const routes: Routes = [
   {
     path: '',
+    title: defaultTitle,
     component: LandingComponent,
     pathMatch: 'full',
   },
   {
     path: 'posts',
+    title: defaultTitle,
     component: PostsComponent,
   },
   {
     path: 'about',
+    title: defaultTitle,
     component: AboutComponent,
   },
   ...GENERATED_ROUTES,
@@ -56,7 +60,6 @@ export class AppRoutingModule {}
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     QuicklinkModule,
     AppRoutingModule,
-    MatToolbarModule,
     HttpClientModule,
     MarkdownModule.forRoot({
       loader: HttpClient,

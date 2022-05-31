@@ -4,19 +4,19 @@ import { Routes } from '@angular/router';
 export const GENERATED_ROUTES: Routes = [
   {
     path: 'posts/angular',
-    title: 'Angular',
+    title: 'Angular | Aleksander Bodurri | Blog',
     loadChildren: () =>
       import('./generated-modules/angular.module').then((m) => m.LazyModule),
   },
   {
     path: 'posts/react',
-    title: 'React',
+    title: 'React | Aleksander Bodurri | Blog',
     loadChildren: () =>
       import('./generated-modules/react.module').then((m) => m.LazyModule),
   },
   {
     path: 'posts/vue',
-    title: 'Vue',
+    title: 'Vue | Aleksander Bodurri | Blog',
     loadChildren: () =>
       import('./generated-modules/vue.module').then((m) => m.LazyModule),
   },
