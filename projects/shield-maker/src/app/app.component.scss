@@ -1,0 +1,103 @@
+::ng-deep {
+  @import "../shield-maker-styles";
+}
+
+:host {
+  position: relative;
+}
+
+section {
+  display: flex;
+
+  .canvas {
+    width: 100%;
+  }
+
+  .palette {
+    width: 100%;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .colors {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+
+    .color-input {
+      min-width: 205px;
+    }
+
+    label {
+      margin: 1rem 0;
+      width: 120px;
+    }
+  }
+}
+
+.canvas {
+  min-height: 510px;
+
+  app-canvas {
+    display: block;
+    width: 500px;
+    margin: auto;
+  }
+
+  .svg-content {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.palette {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > mat-form-field {
+    min-width: 300px;
+  }
+}
+
+.hidden {
+  visibility: none;
+}
+
+.coordinates {
+  width: 125px;
+  margin: auto;
+
+  .y-coord {
+    position: relative;
+    top: 32px;
+    left: -25px;
+
+    ::before {
+      content: "Y";
+    }
+  }
+
+  .x-coord {
+    ::before {
+      content: "X";
+      position: relative;
+      top: 15px;
+    }
+  }
+}
+
+header {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.custom-icon {
+  margin-bottom: 1rem;
+}

@@ -41,6 +41,10 @@
               {
                 "input": "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
                 "inject": false
+              },
+              {
+                "input": "projects/shield-maker/src/shield-maker-styles.scss",
+                "inject": false
               }
             ],
             "scripts": [

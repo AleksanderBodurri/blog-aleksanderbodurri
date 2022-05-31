@@ -14,6 +14,7 @@ import { Routes } from '@angular/router';
 import { GENERATED_ROUTES } from './generated-routes';
 import { AboutComponent } from './routes/about/about.component';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const defaultTitle = 'Aleksander Bodurri | Blog';
 
@@ -34,6 +35,14 @@ const routes: Routes = [
     title: defaultTitle,
     component: AboutComponent,
   },
+  {
+    path: 'shield-maker',
+    title: defaultTitle,
+    loadChildren: () =>
+      import('../../../shield-maker/src/app/app.module').then(
+        (m) => m.AppModule
+      ),
+  },
   ...GENERATED_ROUTES,
 ];
 
@@ -43,7 +52,7 @@ const routerModuleImport = RouterModule.forRoot(routes, {
 });
 
 @NgModule({
-  imports: [routerModuleImport],
+  imports: [routerModuleImport, NoopAnimationsModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
