@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteActivatedEvent } from '@angular/material/autocomplete';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -8,11 +14,11 @@ import { debounceTime, map, startWith } from 'rxjs/operators';
 import { ShieldService } from './shield.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'shield-maker-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loaded = false;
   filteredOptions: string[] = [];
   lookUpIcon = new Subject<string>();
@@ -27,10 +33,26 @@ export class AppComponent implements OnInit {
   constructor(
     private _iconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    public shieldService: ShieldService
+    public shieldService: ShieldService,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
+    let link = this.doc.createElement('link');
+    link.id = 'lazy-load-material-icons';
+    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+    link.rel = 'stylesheet';
+    this.doc.head.appendChild(link);
+    link = this.doc.createElement('link');
+    link.id = 'lazy-load-material';
+    link.href = '/shield-maker-styles.css';
+    link.rel = 'stylesheet';
+    this.doc.head.appendChild(link);
+
+    if (!window) {
+      return;
+    }
+
     this.lookUpIcon.pipe(debounceTime(250)).subscribe((iconLabel) => {
       this.customSvgFile = null;
       this.shieldService.svgAsString.next('');
@@ -71,8 +93,20 @@ export class AppComponent implements OnInit {
     this.lookUpIcon.next(this.shieldService.icon.value);
   }
 
-  onAutoCompleteOptionActivation(event: MatAutocompleteActivatedEvent): void {
-    const option = event.option?.value;
+  ngOnDestroy(): void {
+    const matIconLink = this.doc.querySelector('#lazy-load-material-icons');
+    if (matIconLink) {
+      matIconLink.remove();
+    }
+
+    const materialLink = this.doc.querySelector('#lazy-load-material');
+    if (materialLink) {
+      materialLink.remove();
+    }
+  }
+
+  onAutoCompleteOptionActivation(value: any): void {
+    const option = value;
     this.shieldService.version.next(
       this.shieldService.iconNameToVersion[option]?.toString?.()
     );

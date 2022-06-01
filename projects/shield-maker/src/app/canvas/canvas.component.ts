@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ShieldService } from '../shield.service';
 
 @Component({
-  selector: 'app-canvas',
+  selector: 'shield-maker-canvas',
   template: `
     <svg
       #exportSvg

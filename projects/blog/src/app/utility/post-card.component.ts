@@ -12,6 +12,9 @@ import { Post } from '../routes/posts/define-post';
           <h1>
             {{ post.title }}
           </h1>
+          <h1 class="date">
+            {{ post.date | date }}
+          </h1>
         </header>
         <section>
           <markdown *ngIf="isBrowser" lineNumbers ngPreserveWhitespaces>
@@ -40,9 +43,26 @@ import { Post } from '../routes/posts/define-post';
 
       .blog-post-card-link {
         border: 1px solid #e8e8e8;
-        border-radius: 8px;
         display: block;
         padding: 1rem;
+        background: #fff;
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #e8e8e8;
+
+          h1 {
+            font-size: 1.25rem;
+            margin: 0;
+
+            &.date {
+              color: lightgrey;
+              font-weight: 300;
+              font-size: 1rem;
+            }
+          }
+        }
       }
     `,
   ],
@@ -59,6 +79,7 @@ export class PostCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    console.log(this.post);
 
     if (!this.isBrowser) {
       this.compiledSummary = this.markdownService.compile(

@@ -15,11 +15,12 @@ import { posts } from './define-post';
       ul {
         min-height: calc(100% - 200px);
         list-style: none;
-        margin: 0;
+        margin: 0 auto;
         display: flex;
         padding: 1rem;
         flex-direction: column;
         gap: 1rem;
+        max-width: 800px;
       }
     `,
   ],

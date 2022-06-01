@@ -27,7 +27,10 @@ const mainStyles = `
       <router-outlet></router-outlet>
 
       <footer>
-        <p>Copyright {{ year.getFullYear() }}</p>
+        <p>
+          Copyright {{ year.getFullYear() }} <br />
+          Aleksander Bodurri
+        </p>
       </footer>
     </main>
   `,

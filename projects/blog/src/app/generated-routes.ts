@@ -3,21 +3,21 @@ import { Routes } from '@angular/router';
 
 export const GENERATED_ROUTES: Routes = [
   {
-    path: 'posts/angular',
-    title: 'Angular | Aleksander Bodurri | Blog',
+    path: 'posts/nghost',
+    title:
+      'Why are there _nghost attributes all over my HTML? | Aleksander Bodurri | Blog',
+
     loadChildren: () =>
-      import('./generated-modules/angular.module').then((m) => m.LazyModule),
+      import('./generated-route-modules/nghost.module').then(
+        (m) => m.LazyModule
+      ),
   },
   {
-    path: 'posts/react',
-    title: 'React | Aleksander Bodurri | Blog',
+    path: 'posts/directive-context',
+    title: 'Directive Context | Aleksander Bodurri | Blog',
     loadChildren: () =>
-      import('./generated-modules/react.module').then((m) => m.LazyModule),
-  },
-  {
-    path: 'posts/vue',
-    title: 'Vue | Aleksander Bodurri | Blog',
-    loadChildren: () =>
-      import('./generated-modules/vue.module').then((m) => m.LazyModule),
+      import('./generated-route-modules/directive-context.module').then(
+        (m) => m.LazyModule
+      ),
   },
 ];

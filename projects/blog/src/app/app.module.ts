@@ -1,4 +1,4 @@
-import { SecurityContext } from '@angular/core';
+import { APP_ID, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -14,7 +14,7 @@ import { Routes } from '@angular/router';
 import { GENERATED_ROUTES } from './generated-routes';
 import { AboutComponent } from './routes/about/about.component';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const defaultTitle = 'Aleksander Bodurri | Blog';
 
@@ -52,7 +52,7 @@ const routerModuleImport = RouterModule.forRoot(routes, {
 });
 
 @NgModule({
-  imports: [routerModuleImport, NoopAnimationsModule],
+  imports: [routerModuleImport],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
@@ -67,6 +67,7 @@ export class AppRoutingModule {}
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserAnimationsModule,
     QuicklinkModule,
     AppRoutingModule,
     HttpClientModule,
@@ -76,7 +77,12 @@ export class AppRoutingModule {}
     }),
     RouterModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_ID,
+      useValue: 'one-framework-to-rule-them-all',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

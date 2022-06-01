@@ -3,33 +3,23 @@ import { PostMetaData } from './post-metadata';
 
 export const postMetaData: PostMetaData[] = [
   {
-    date: '2022-05-28T23:12:00.000Z',
-    title: 'Angular',
-    tags: ['Angular'],
-    description: 'Angular is cool.',
-    slug: 'angular',
-    sectionNames: ['chapter-1.md'],
+    date: '2022-06-01T23:12:00.000Z',
+    title: 'Why are there _nghost attributes all over my HTML?',
+    tags: ['Angular', 'angular', 'nghost', '_nghost'],
+    description: 'Why are there _nghost attributes all over my HTML?',
+    slug: 'nghost',
+    sectionNames: ['page-1.md'],
     summary:
-      'Angular is a development platform, built on [TypeScript](https://www.typescriptlang.org).\nAs a platform, Angular includes:\n\n- A component-based framework for building scalable web applications\n- A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more\n- A suite of developer tools to help you develop, build, test, and update your code\n',
+      "Ever wonder what those strange `_nghost` and `_ngcontent` attributes are on your HTML tags?\n\nIf this doesn't sound familiar, go to any Angular app and open the developer console for your browser. Inspect the HTML source of the application and you will likely see `_nghost` and `_ngcontent` attributes on some DOM elements.",
   },
   {
-    date: '2022-05-27T23:12:00.000Z',
-    title: 'React',
-    tags: ['React'],
-    description: 'React is cool.',
-    slug: 'react',
-    sectionNames: ['chapter-1.md'],
+    date: '2022-05-31T23:12:00.000Z',
+    title: 'Directive Context',
+    tags: ['Angular', 'angular', 'angular directive', 'context', 'directive'],
+    description: 'What is a directive context in Angular?',
+    slug: 'directive-context',
+    sectionNames: ['page-1.md'],
     summary:
-      'React is a JavaScript library for building user interfaces.\n\n- **Declarative:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug.\n',
-  },
-  {
-    date: '2022-05-26T23:12:00.000Z',
-    title: 'Vue',
-    tags: ['Vue'],
-    description: 'Vue is cool.',
-    slug: 'vue',
-    sectionNames: ['chapter-1.md'],
-    summary:
-      '## Introduction\n\nVue (pronounced `/vjuː/`, like view) is a **progressive framework** for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.\n',
+      'You may recognize the usage of `let isFirst = first` in the following template\n\n```html\n<div *ngFor="let event of eventQueue; let isFirst = first">\n    ...\n</div>\n```\n',
   },
 ];

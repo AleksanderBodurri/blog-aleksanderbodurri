@@ -59,7 +59,7 @@
     </div>
   </div>
   <div class="canvas">
-    <app-canvas *ngIf="loaded"></app-canvas>
+    <shield-maker-canvas *ngIf="loaded"></shield-maker-canvas>
   </div>
   <div class="palette">
     <label class="custom-icon">
@@ -102,7 +102,7 @@
         [value]="shieldService.icon | async"
       />
       <mat-autocomplete
-        (optionActivated)="onAutoCompleteOptionActivation($event)"
+        (optionActivated)="onAutoCompleteOptionActivation($event.option?.value)"
         #auto="matAutocomplete"
       >
         <mat-option *ngFor="let option of filteredOptions" [value]="option">

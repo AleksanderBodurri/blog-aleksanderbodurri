@@ -7,10 +7,8 @@ import { Component } from '@angular/core';
       <div class="links">
         <a routerLink="/">Home</a>
         <a class="posts" routerLink="posts">Posts</a>
-        <a class="about" routerLink="about">About</a>
-        <a class="resume" target="_blank" href="assets/resume/index.html"
-          >Resume</a
-        >
+        <!-- <a class="about" routerLink="about">About</a> -->
+        <a class="shield-maker" routerLink="shield-maker">Shield-Maker</a>
       </div>
       <div class="links">
         <a target="_blank" href="https://github.com/AleksanderBodurri">

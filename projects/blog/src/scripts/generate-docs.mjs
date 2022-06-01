@@ -3,7 +3,7 @@ import { format } from "prettier";
 
 const generatedRoutesPath = "./projects/blog/src/app/generated-routes.ts";
 const markdownPath = "./projects/blog/src/assets/md";
-const generatedModulePath = "./projects/blog/src/app/generated-modules";
+const generatedModulePath = "./projects/blog/src/app/generated-route-modules";
 const postMetaDataPath =
   "./projects/blog/src/app/routes/posts/generated-post-metadata.ts";
 
@@ -27,9 +27,10 @@ readdirSync(markdownPath).forEach((file) => {
     });
 
     content = content.replace(/`/g, "\\`");
+    content = content.replace(/\$/g, "\\$");
 
     escapedContent = escapedContent.replace(/`/g, "\\`");
-    escapedContent = escapedContent.replace(/([{}<>])/g, "{{ '$1' }}");
+    escapedContent = escapedContent.replace(/([{}<>\$])/g, "{{ '$1' }}");
 
     const description = metadata["description"];
     const tags = ["blog", "post", ...(metadata?.["tags"] ?? [])];
@@ -46,8 +47,12 @@ readdirSync(markdownPath).forEach((file) => {
   
 :host {
     display: block;
-    width: 70%;
+    max-width: 800px;
     margin: 2rem auto 0;
+    
+    @media screen and (max-width: 500px) {
+      max-width: calc(100% - 24px);
+    }
 }
 
 pre.server-rendered {
@@ -90,7 +95,8 @@ export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
     this.meta.addTag({ property: 'oh:title', content: '${title}' });
     this.meta.addTag({ property: 'oh:type', content: 'article' });
     this.meta.addTag({ property: 'oh:url', content: 'https://aleksanderbodurri-eefbe.web.app/posts/${file}' });
-    this.meta.addTag({ property: 'oh:image', content: 'https://aleksanderbodurri-eefbe.web.app/assets/alex.png' });
+    this.meta.addTag({ property: 'oh:image', content: 'http://aleksanderbodurri-eefbe.web.app/assets/me.png' });
+    this.meta.addTag({ property: 'oh:image:secure_url', content: 'https://aleksanderbodurri-eefbe.web.app/assets/me.png' });
 
     if (${description.length > 0}) {
       this.meta.addTag({ name: 'description', content: '${description}' });
@@ -106,10 +112,11 @@ export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.meta.removeTag('property=oh:title');
-    this.meta.removeTag('property=oh:type');
-    this.meta.removeTag('property=oh:url');
-    this.meta.removeTag('property=oh:image');
+    this.meta.removeTag('property="oh:title"');
+    this.meta.removeTag('property="oh:type"');
+    this.meta.removeTag('property="oh:url"');
+    this.meta.removeTag('property="oh:image"');
+    this.meta.removeTag('property="oh:image:secure_url"');
 
     if (${metadata["description"].length > 0}) {
       this.meta.removeTag('name=description');
@@ -162,7 +169,7 @@ export class LazyModule {}
     return `{
       path: 'posts/${slug}',
       title: '${title} | Aleksander Bodurri | Blog',
-      loadChildren: () => import('./generated-modules/${slug}.module').then((m) => m.LazyModule)
+      loadChildren: () => import('./generated-route-modules/${slug}.module').then((m) => m.LazyModule)
     }`;
   };
 

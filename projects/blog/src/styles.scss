@@ -16,6 +16,14 @@ body {
 
 markdown,
 pre {
+  pre[class*="language-"] {
+    font-size: 0.9rem;
+    @media screen and (max-width: 500px) {
+      margin: 0 -12px;
+      border-radius: 0;
+    }
+  }
+
   table {
     margin: 0 auto;
   }
@@ -59,7 +67,10 @@ pre {
 
 blog-navbar {
   display: block;
+  position: fixed;
   width: 100%;
+  top: 0;
+  z-index: 1001;
 
   header {
     width: 100%;
@@ -83,7 +94,8 @@ blog-navbar {
 
       .posts,
       .about,
-      .resume {
+      .resume,
+      .shield-maker {
         @media screen and (max-width: 700px) {
           display: none;
         }
@@ -92,6 +104,10 @@ blog-navbar {
       a {
         text-decoration: none;
         color: #ffffff;
+
+        &:hover {
+          opacity: 0.8;
+        }
 
         img {
           position: relative;
@@ -109,7 +125,24 @@ html,
 body {
   height: 100%;
 }
+
 body {
+  --background-color: rgba(0, 0, 255, 0.03);
+  --background-color-accent: transparent;
+  --background-grid-length: 3px;
+  --background-grid-degree: 45deg;
+
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding-top: 64px;
+  height: calc(100% - 64px);
+  background: repeating-linear-gradient(
+      calc(-1 * var(--background-grid-degree)),
+      var(--background-color),
+      var(--background-color-accent) var(--background-grid-length)
+    ),
+    repeating-linear-gradient(
+      var(--background-grid-degree),
+      var(--background-color),
+      var(--background-color-accent) var(--background-grid-length)
+    );
 }
