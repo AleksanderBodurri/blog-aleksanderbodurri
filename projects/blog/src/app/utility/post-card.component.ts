@@ -79,7 +79,6 @@ export class PostCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    console.log(this.post);
 
     if (!this.isBrowser) {
       this.compiledSummary = this.markdownService.compile(

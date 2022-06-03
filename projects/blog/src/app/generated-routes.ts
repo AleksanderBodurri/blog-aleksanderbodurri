@@ -6,7 +6,6 @@ export const GENERATED_ROUTES: Routes = [
     path: 'posts/nghost',
     title:
       'Why are there _nghost attributes all over my HTML? | Aleksander Bodurri | Blog',
-
     loadChildren: () =>
       import('./generated-route-modules/nghost.module').then(
         (m) => m.LazyModule

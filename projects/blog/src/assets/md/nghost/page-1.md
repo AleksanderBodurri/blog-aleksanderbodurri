@@ -93,4 +93,4 @@ This means we can provide our own `APP_ID` and override the default `APP_ID` pro
 
 Of course, it is not reccomended to overwrite `APP_ID` in this way, and if we do, we should make sure we provide a factory to `APP_ID` that generates a random string.
 
-Overall this is a mostly useless trick, but one that I found to be a interesting example of the power dependency injection gives to developers. Maybe one day a company that uses Angular will provide `APP_ID` with a value to say "we-are-hiring", similar to how how Reddit puts out a hiring message with console logs.
+Overall this is a mostly useless trick, but one that I found to be a interesting example of the power dependency injection gives to developers.

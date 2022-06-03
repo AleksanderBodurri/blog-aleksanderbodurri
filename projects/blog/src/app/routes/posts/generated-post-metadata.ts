@@ -10,7 +10,7 @@ export const postMetaData: PostMetaData[] = [
     slug: 'nghost',
     sectionNames: ['page-1.md'],
     summary:
-      "Ever wonder what those strange `_nghost` and `_ngcontent` attributes are on your HTML tags?\n\nIf this doesn't sound familiar, go to any Angular app and open the developer console for your browser. Inspect the HTML source of the application and you will likely see `_nghost` and `_ngcontent` attributes on some DOM elements.",
+      "Ever wonder what those strange `_nghost` and `_ngcontent` attributes are on your HTML tags?\n\nIf this doesn't sound familiar, go to any Angular app and open the developer console for your browser. Inspect the HTML source of the application and you will likely see `_nghost` and `_ngcontent` attributes on some DOM elements.\n",
   },
   {
     date: '2022-05-31T23:12:00.000Z',
@@ -20,6 +20,6 @@ export const postMetaData: PostMetaData[] = [
     slug: 'directive-context',
     sectionNames: ['page-1.md'],
     summary:
-      'You may recognize the usage of `let isFirst = first` in the following template\n\n```html\n<div *ngFor="let event of eventQueue; let isFirst = first">\n    ...\n</div>\n```\n',
+      'You may recognize the usage of `let isFirst = first` in the following template\n\n```html\n<div *ngFor="let event of eventQueue; let isFirst = first">...</div>\n```\n',
   },
 ];

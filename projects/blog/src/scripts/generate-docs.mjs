@@ -36,6 +36,8 @@ readdirSync(markdownPath).forEach((file) => {
     const tags = ["blog", "post", ...(metadata?.["tags"] ?? [])];
     const title = metadata["title"];
 
+    const styles = readFileSync("./projects/blog/src/scripts/post-styles.scss");
+
     return `
 @Component({
   selector: 'blog-${file}',
@@ -44,39 +46,7 @@ readdirSync(markdownPath).forEach((file) => {
   <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
   \`,
   styles: [\`
-  
-:host {
-    display: block;
-    max-width: 800px;
-    margin: 2rem auto 0;
-    
-    @media screen and (max-width: 500px) {
-      max-width: calc(100% - 24px);
-    }
-}
-
-pre.server-rendered {
-  all: unset;
-
-  ::ng-deep {
-    pre {
-      background-color: #1e1f21;
-      padding: 12px;
-  
-      pre {
-        padding: 1em;
-        margin: 0.5em 0;
-        overflow: auto;
-        border-radius: 0.3em;
-      }
-
-      code[class*=language-] {
-        color: #5ab9ca;
-      }
-    }
-  }
-}
-
+    ${styles}
 \`]
 })
 export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
@@ -158,7 +128,9 @@ ${component}
     ]),
     MarkdownModule.forChild(),
   ],
-  declarations: [${toUpperCamelCase(name)}Component],
+  declarations: [
+    ${toUpperCamelCase(name)}Component,
+  ],
   bootstrap: [],
 })
 export class LazyModule {}

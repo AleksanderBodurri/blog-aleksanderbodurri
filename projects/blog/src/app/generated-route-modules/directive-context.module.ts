@@ -22,16 +22,14 @@ import { Meta } from '@angular/platform-browser';
       >You may recognize the usage of \`let isFirst = first\` in the following
       template \`\`\`html {{ '<' }}div *ngFor="let event of eventQueue; let
       isFirst = first"{{ '>' }} {{ '<' }}button *ngIf="isFirst"
-      (click)="pop(event)"{{ '>' }}
-      Execute Next Event
-      {{ '<' }}/button{{ '>' }} {{ '<' }}h1{{ '>' }} {{ '{'
-      }}{{ '{' }} event.name {{ '}' }}{{ '}' }} {{ '<' }}/h1{{ '>' }}
-      {{ '<' }}/div{{ '>' }} \`\`\` It is a boolean variable exposed to the
-      template supplied to the NgFor directive. It can be used to determine if
-      the item rendering is the first item in the iterable passed into the
-      directive. The example given is somewhat contrived but it should
-      demonstrate clearly how the \`first\` variable is being used. You can read
-      more on the
+      (click)="pop(event)"{{ '>' }}Execute Next Event{{ '<' }}/button{{ '>' }}
+      {{ '<' }}h1{{ '>' }}{{ '{' }}{{ '{' }} event.name {{ '}' }}{{ '}'
+      }}{{ '<' }}/h1{{ '>' }} {{ '<' }}/div{{ '>' }} \`\`\` It is a boolean
+      variable exposed to the template supplied to the NgFor directive. It can
+      be used to determine if the item rendering is the first item in the
+      iterable passed into the directive. The example given is somewhat
+      contrived but it should demonstrate clearly how the \`first\` variable is
+      being used. You can read more on the
       [Angular.io](https://angular.io/api/common/NgForOf#local-variables) docs.
       The NgFor directive is not magical, it does not possess capabilites within
       it that are out of reach for any custom directives we may want to write
@@ -51,7 +49,7 @@ import { Meta } from '@angular/platform-browser';
       {{ '}' }}
 
       @Directive({{ '{' }}
-      selector: '[appRandomNumber]'
+      selector: "[appRandomNumber]",
       {{ '}' }}) export class RandomNumberDirective implements OnInit
       {{ '{' }} constructor( private _viewContainer: ViewContainerRef, private
       _templateRef: TemplateRef{{ '<' }}RandomNumberContext{{ '>' }} ) {{ '{'
@@ -59,9 +57,8 @@ import { Meta } from '@angular/platform-browser';
 
       ngOnInit(): void {{ '{' }}
       // First arg is the template we passed in, second arg is a context that we
-      can provide to the view
-      this._viewContainer.createEmbeddedView(this._templateRef, new
-      RandomNumberContext(Math.random()));
+      can provide to the view this._viewContainer.createEmbeddedView(
+      this._templateRef, new RandomNumberContext(Math.random()) );
       {{ '}' }}
       {{ '}' }}
       \`\`\` \`\`\`html
@@ -73,16 +70,16 @@ import { Meta } from '@angular/platform-browser';
       {{ '{' }}{{ '}' }}
 
       get asPercent(): string {{ '{' }}
-      return (this.random * 100).toFixed(2) + '%';
+      return (this.random * 100).toFixed(2) + "%";
       {{ '}' }}
       {{ '}' }}
       \`\`\` \`\`\`html
       {{ '<' }}p *appRandomNumber="let myRandomNumber = random; let
-      myRandomPercentage = asPercent"{{ '>' }} Your random num is: {{ '{'
-      }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }}, Your random percentage is:
-      {{ '{' }}{{ '{' }} myRandomPercentage {{ '}' }}{{ '}' }} {{ '<' }}/p{{
-        '>'
-      }}
+      myRandomPercentage = asPercent"
+      {{ '>' }}
+      Your random num is: {{ '{' }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }},
+      Your random percentage is: {{ '{' }}{{ '{' }} myRandomPercentage {{ '}'
+      }}{{ '}' }} {{ '<' }}/p{{ '>' }}
       \`\`\`
     </markdown>
     <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
@@ -104,8 +101,13 @@ import { Meta } from '@angular/platform-browser';
 
         ::ng-deep {
           pre {
-            background-color: #1e1f21;
+            background-color: #272822;
             padding: 12px;
+            border-radius: 0.3rem;
+            @media screen and (max-width: 500px) {
+              margin: 0 -12px;
+              border-radius: 0;
+            }
 
             pre {
               padding: 1em;
@@ -115,7 +117,19 @@ import { Meta } from '@angular/platform-browser';
             }
 
             code[class*='language-'] {
+              font-size: 0.9rem;
               color: #5ab9ca;
+              background: none;
+              text-shadow: 0 1px rgb(0 0 0 / 30%);
+              text-align: left;
+              white-space: pre;
+              word-spacing: normal;
+              word-break: normal;
+              word-wrap: normal;
+              line-height: 1.5;
+              tab-size: 4;
+              -webkit-hyphens: none;
+              hyphens: none;
             }
           }
         }
@@ -129,12 +143,8 @@ export class DirectiveContextComponent implements OnInit, OnDestroy {
 
 \`\`\`html
 <div *ngFor="let event of eventQueue; let isFirst = first">
-     <button *ngIf="isFirst" (click)="pop(event)">
-        Execute Next Event
-     </button>
-     <h1>
-        {{ event.name }}
-     </h1>
+  <button *ngIf="isFirst" (click)="pop(event)">Execute Next Event</button>
+  <h1>{{ event.name }}</h1>
 </div>
 \`\`\`
 
@@ -148,28 +158,31 @@ Lets build a simple structural directive that renders the template provided to i
 
 \`\`\`ts
 class RandomNumberContext {
-    constructor(public random: number) {}
+  constructor(public random: number) {}
 }
 
 @Directive({
-    selector: '[appRandomNumber]'
+  selector: "[appRandomNumber]",
 })
 export class RandomNumberDirective implements OnInit {
-    constructor(
-        private _viewContainer: ViewContainerRef,
-        private _templateRef: TemplateRef<RandomNumberContext>
-    ) {}
+  constructor(
+    private _viewContainer: ViewContainerRef,
+    private _templateRef: TemplateRef<RandomNumberContext>
+  ) {}
 
-    ngOnInit(): void {
-        // First arg is the template we passed in, second arg is a context that we can provide to the view
-        this._viewContainer.createEmbeddedView(this._templateRef, new RandomNumberContext(Math.random()));
-    }
+  ngOnInit(): void {
+    // First arg is the template we passed in, second arg is a context that we can provide to the view
+    this._viewContainer.createEmbeddedView(
+      this._templateRef,
+      new RandomNumberContext(Math.random())
+    );
+  }
 }
 \`\`\`
 
 \`\`\`html
 <p *appRandomNumber="let myRandomNumber = random">
-    Your random num is: {{ myRandomNumber }}
+  Your random num is: {{ myRandomNumber }}
 </p>
 \`\`\`
 
@@ -177,17 +190,20 @@ Maybe we want to access our number as a percent. Lets expand our Context class i
 
 \`\`\`ts
 class RandomNumberContext {
-    constructor(public random: number) {}
+  constructor(public random: number) {}
 
-    get asPercent(): string {
-        return (this.random * 100).toFixed(2) + '%';
-    }
+  get asPercent(): string {
+    return (this.random * 100).toFixed(2) + "%";
+  }
 }
 \`\`\`
 
 \`\`\`html
-<p *appRandomNumber="let myRandomNumber = random; let myRandomPercentage = asPercent">
-    Your random num is: {{ myRandomNumber }}, Your random percentage is: {{ myRandomPercentage }}
+<p
+  *appRandomNumber="let myRandomNumber = random; let myRandomPercentage = asPercent"
+>
+  Your random num is: {{ myRandomNumber }}, Your random percentage is: {{
+  myRandomPercentage }}
 </p>
 \`\`\`
 `;

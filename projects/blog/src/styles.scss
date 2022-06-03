@@ -2,6 +2,7 @@
 
 body {
   background-color: #f7f8ff;
+  line-height: 1.75;
 }
 
 html,
@@ -18,6 +19,9 @@ markdown,
 pre {
   pre[class*="language-"] {
     font-size: 0.9rem;
+    background-color: #272822;
+    padding: 12px;
+
     @media screen and (max-width: 500px) {
       margin: 0 -12px;
       border-radius: 0;
@@ -129,7 +133,7 @@ body {
 body {
   --background-color: rgba(0, 0, 255, 0.03);
   --background-color-accent: transparent;
-  --background-grid-length: 3px;
+  --background-grid-length: 5px;
   --background-grid-degree: 45deg;
 
   margin: 0;
@@ -145,4 +149,11 @@ body {
       var(--background-color),
       var(--background-color-accent) var(--background-grid-length)
     );
+}
+
+hello-world,
+.hello-world {
+  display: block;
+  height: 200px;
+  width: 100%;
 }
