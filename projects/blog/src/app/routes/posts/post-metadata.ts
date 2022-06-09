@@ -6,4 +6,5 @@ export interface PostMetaData {
   sectionNames: string[];
   tags: string[];
   summary: string;
+  codeblocks: { [key: string]: string };
 }

@@ -1,36 +1,50 @@
 import { writeFileSync, readdirSync, readFileSync } from "fs";
 import { format } from "prettier";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
+import remarkPrism from "remark-prism";
 
 const generatedRoutesPath = "./projects/blog/src/app/generated-routes.ts";
 const markdownPath = "./projects/blog/src/assets/md";
 const generatedModulePath = "./projects/blog/src/app/generated-route-modules";
 const postMetaDataPath =
   "./projects/blog/src/app/routes/posts/generated-post-metadata.ts";
+const componentsForGeneratedRoutesPath =
+  "./projects/blog/src/app/components-for-generated-routes";
 
 let pages = [];
 
-readdirSync(markdownPath).forEach((file) => {
+let componentSelectors = {};
+const componentPromises = readdirSync(componentsForGeneratedRoutesPath).map(
+  async (file) => {
+    componentSelectors[
+      file
+    ] = `${componentsForGeneratedRoutesPath}/${file}/${file}.component.ts`;
+  }
+);
+await Promise.all(componentPromises);
+console.log(componentSelectors);
+
+const pagePromises = readdirSync(markdownPath).map(async (file) => {
   const path = `${markdownPath}/${file}`;
-  const mdFiles = readdirSync(path);
-  const contentFiles = mdFiles
-    .filter((name) => name !== "summary.md" && name !== "metadata.json")
+  const contentFiles = readdirSync(path);
+  const codeblocks = contentFiles
+    .filter((name) => name !== "metadata.json")
     .sort();
 
-  const constructComponent = (names, metadata) => {
-    let content = "";
-    let escapedContent = "";
+  const constructComponent = async (metadata) => {
+    let content = readFileSync(`${path}/page.md`);
 
-    names.forEach((name) => {
-      const fileContent = readFileSync(`${path}/${name}`);
-      content += fileContent;
-      escapedContent += fileContent;
-    });
-
-    content = content.replace(/`/g, "\\`");
-    content = content.replace(/\$/g, "\\$");
-
-    escapedContent = escapedContent.replace(/`/g, "\\`");
-    escapedContent = escapedContent.replace(/([{}<>\$])/g, "{{ '$1' }}");
+    let output = String(
+      await remark()
+        .use(remarkPrism)
+        .use(remarkHtml, { sanitize: false })
+        .process(content)
+    );
+    output = output.replace(/\$/g, "\\$");
+    output = output.replace(/`/g, "\\`");
+    output = output.replace(/([{}])/g, "{{ '$1' }}");
+    output = format(output, { semi: false, parser: "html" });
 
     const description = metadata["description"];
     const tags = ["blog", "post", ...(metadata?.["tags"] ?? [])];
@@ -42,31 +56,24 @@ readdirSync(markdownPath).forEach((file) => {
 @Component({
   selector: 'blog-${file}',
   template: \`
-  <markdown *ngIf="isBrowser" ngPreserveWhitespaces>${escapedContent}</markdown>
-  <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
+${output}
   \`,
   styles: [\`
     ${styles}
 \`]
 })
 export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
-  isBrowser = false;
-  content = \`${content}\`;
-
   constructor(
     @Inject(PLATFORM_ID) public platformId: Object,
-    private markdownService: MarkdownService,
     private meta: Meta
   ){}
 
   ngOnInit(): void {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-
-    this.meta.addTag({ property: 'oh:title', content: '${title}' });
-    this.meta.addTag({ property: 'oh:type', content: 'article' });
-    this.meta.addTag({ property: 'oh:url', content: 'https://aleksanderbodurri-eefbe.web.app/posts/${file}' });
-    this.meta.addTag({ property: 'oh:image', content: 'http://aleksanderbodurri-eefbe.web.app/assets/me.png' });
-    this.meta.addTag({ property: 'oh:image:secure_url', content: 'https://aleksanderbodurri-eefbe.web.app/assets/me.png' });
+    this.meta.addTag({ property: 'og:title', content: '${title}' });
+    this.meta.addTag({ property: 'og:type', content: 'article' });
+    this.meta.addTag({ property: 'og:url', content: 'https://aleksanderbodurri-eefbe.web.app/posts/${file}' });
+    this.meta.addTag({ property: 'og:image', content: 'http://aleksanderbodurri-eefbe.web.app/assets/me.png' });
+    this.meta.addTag({ property: 'og:image:secure_url', content: 'https://aleksanderbodurri-eefbe.web.app/assets/me.png' });
 
     if (${description.length > 0}) {
       this.meta.addTag({ name: 'description', content: '${description}' });
@@ -74,10 +81,6 @@ export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
 
     if (${tags.length > 0}) {
       this.meta.addTag({ name: 'keywords', content: '${tags.join(",")}' });
-    }
-
-    if (!this.isBrowser) {
-      this.content = this.markdownService.compile(this.content);
     }
   }
 
@@ -100,19 +103,30 @@ export class ${toUpperCamelCase(file)}Component implements OnInit, OnDestroy {
     `;
   };
 
-  const constructModuleAndComponent = (name, metadata) => {
-    const component = constructComponent(contentFiles, metadata);
+  const constructModuleAndComponent = async (name, metadata) => {
+    const component = await constructComponent(metadata);
 
-    return `
-// THIS FILE WAS GENERATED BY TOOLING. DO NOT EDIT THIS FILE DIRECTLY.
+    const importExpressions = Object.keys(componentSelectors).map(
+      (selector) => {
+        return `import { ${toUpperCamelCase(
+          selector
+        )}Component } from '../components-for-generated-routes/${selector}/${selector}.component'`;
+      }
+    );
+    const cmpImportExpressions = Object.keys(componentSelectors).map(
+      (selector) => {
+        return `${toUpperCamelCase(selector)}Component`;
+      }
+    );
+
+    return `// THIS FILE WAS GENERATED BY TOOLING. DO NOT EDIT THIS FILE DIRECTLY.
 
 import { Component, NgModule, Inject, PLATFORM_ID, OnInit, OnDestroy } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { MarkdownModule } from "ngx-markdown";
 import { CommonModule } from "@angular/common";
-import { isPlatformBrowser } from '@angular/common';
-import { MarkdownService } from 'ngx-markdown';
 import { Meta } from '@angular/platform-browser';
+
+${importExpressions.join(";\n")}
 
 ${component}
 
@@ -126,7 +140,8 @@ ${component}
         component: ${toUpperCamelCase(name)}Component,
       },
     ]),
-    MarkdownModule.forChild(),
+    ${cmpImportExpressions.join(",\n    ")}
+
   ],
   declarations: [
     ${toUpperCamelCase(name)}Component,
@@ -146,11 +161,41 @@ export class LazyModule {}
   };
 
   const metadata = JSON.parse(readFileSync(`${path}/metadata.json`));
-  const lazyModule = constructModuleAndComponent(file, metadata);
+  const lazyModule = await constructModuleAndComponent(file, metadata);
   const route = constructRoute(file, metadata["title"]);
   metadata["slug"] = file;
   metadata["sectionNames"] = contentFiles;
   metadata["summary"] = "" + readFileSync(`${path}/summary.md`);
+
+  let summaryOutput = String(
+    await remark()
+      .use(remarkPrism)
+      .use(remarkHtml, { sanitize: false })
+      .process(metadata["summary"])
+  );
+  summaryOutput = summaryOutput.replace(/\$/g, "\\$");
+  summaryOutput = summaryOutput.replace(/`/g, "\\`");
+  summaryOutput = summaryOutput.replace(/([{}])/g, "{{ '$1' }}");
+  summaryOutput = format(summaryOutput, { semi: false, parser: "html" });
+  metadata["summary"] = summaryOutput;
+  metadata["codeblocks"] = {};
+
+  await Promise.all(
+    codeblocks.map(async (codeblock) => {
+      let codeblockOutput = "" + readFileSync(`${path}/${codeblock}`);
+      codeblockOutput = String(
+        await remark()
+          .use(remarkPrism)
+          .use(remarkHtml, { sanitize: false })
+          .process(codeblockOutput)
+      );
+      codeblockOutput = format(codeblockOutput, {
+        semi: false,
+        parser: "html",
+      });
+      metadata["codeblocks"][codeblock] = codeblockOutput;
+    })
+  );
 
   pages.push({
     file,
@@ -159,6 +204,8 @@ export class LazyModule {}
     metadata,
   });
 });
+
+await Promise.all(pagePromises);
 
 pages = pages.sort(
   (a, b) => new Date(b.metadata.date) - new Date(a.metadata.date)

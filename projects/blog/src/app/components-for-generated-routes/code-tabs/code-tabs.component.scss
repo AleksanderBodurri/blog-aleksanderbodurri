@@ -1,0 +1,112 @@
+:host {
+  .tab-group {
+    outline: 10px solid #20212a;
+    margin: 10px;
+
+    @media screen and (max-width: 801px) {
+      margin: 0 -12px;
+    }
+
+    section {
+      background: #272a36;
+
+      &.height-set {
+        ::ng-deep {
+          ol[tabs] {
+            li {
+              code-block {
+                div {
+                  height: 100%;
+
+                  ::ng-deep {
+                    .remark-highlight {
+                      height: 100%;
+
+                      pre {
+                        height: calc(100% - 2rem);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      ::ng-deep {
+        ol[tabs] {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          height: 100%;
+
+          li {
+            height: 100%;
+            display: none;
+          }
+        }
+
+        pre[class*="language-"] {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.highlight-track {
+  position: relative;
+  background: #1b1c22;
+
+  .highlight {
+    position: absolute;
+    background: #3f50b5;
+    height: 2px;
+    width: 40px;
+    transition: left 0.3s linear, width 0.3s linear;
+    bottom: 0;
+  }
+}
+
+header {
+  background: #1b1c23;
+  color: white;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+ol {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    min-width: 185px;
+    text-align: center;
+    white-space: pre;
+    background-color: #282a36;
+    transition: background-color 0.3s linear;
+
+    &:not(.selected) {
+      opacity: 0.6;
+      background-color: #282a3690;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &:active {
+        transition: none;
+        background-color: #282a36;
+      }
+    }
+  }
+}

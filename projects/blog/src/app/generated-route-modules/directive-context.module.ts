@@ -9,80 +9,125 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
-import { isPlatformBrowser } from '@angular/common';
-import { MarkdownService } from 'ngx-markdown';
 import { Meta } from '@angular/platform-browser';
+
+import { CodeBlockComponent } from '../components-for-generated-routes/code-block/code-block.component';
+import { CodeTabsComponent } from '../components-for-generated-routes/code-tabs/code-tabs.component';
+import { DirectiveContextDemoComponent } from '../components-for-generated-routes/directive-context-demo/directive-context-demo.component';
+import { HelloWorldComponent } from '../components-for-generated-routes/hello-world/hello-world.component';
 
 @Component({
   selector: 'blog-directive-context',
   template: `
-    <markdown *ngIf="isBrowser" ngPreserveWhitespaces
-      >You may recognize the usage of \`let isFirst = first\` in the following
-      template \`\`\`html {{ '<' }}div *ngFor="let event of eventQueue; let
-      isFirst = first"{{ '>' }} {{ '<' }}button *ngIf="isFirst"
-      (click)="pop(event)"{{ '>' }}Execute Next Event{{ '<' }}/button{{ '>' }}
-      {{ '<' }}h1{{ '>' }}{{ '{' }}{{ '{' }} event.name {{ '}' }}{{ '}'
-      }}{{ '<' }}/h1{{ '>' }} {{ '<' }}/div{{ '>' }} \`\`\` It is a boolean
-      variable exposed to the template supplied to the NgFor directive. It can
-      be used to determine if the item rendering is the first item in the
-      iterable passed into the directive. The example given is somewhat
-      contrived but it should demonstrate clearly how the \`first\` variable is
-      being used. You can read more on the
-      [Angular.io](https://angular.io/api/common/NgForOf#local-variables) docs.
+    <p>
+      You may recognize the usage of <code>let isFirst = first</code> in the
+      following template
+    </p>
+    <div class="remark-highlight">
+      <pre
+        class="language-html"
+      ><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>div</span> <span class="token attr-name">*ngFor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let event of eventQueue; let isFirst = first<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>button</span> <span class="token attr-name">*ngIf</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>isFirst<span class="token punctuation">"</span></span> <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pop(event)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Execute Next Event<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>h1</span><span class="token punctuation">></span></span>{{ '{' }}{{ '{' }} event.name {{ '}' }}{{ '}' }}<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>h1</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+    </div>
+    <p>
+      It is a boolean variable exposed to the template supplied to the NgFor
+      directive. It can be used to determine if the item rendering is the first
+      item in the iterable passed into the directive. The example given is
+      somewhat contrived but it should demonstrate clearly how the
+      <code>first</code> variable is being used. You can read more on the
+      <a href="https://angular.io/api/common/NgForOf#local-variables"
+        >Angular.io</a
+      >
+      docs.
+    </p>
+    <p>
       The NgFor directive is not magical, it does not possess capabilites within
       it that are out of reach for any custom directives we may want to write
-      ourselves. So then how do we do this? Where does the \`first\` variable
-      come from? NgFor is a structural directive. This means that somewhere
-      within the directive's logic, it changes the DOM layout by removing or
-      creating DOM elements. In this case, NgFor creates embedded views based on
-      the template we provide and the array passed in as an \`@Input\`. When
-      this view is created, we have the option of exposing a context to that
-      view. The NgFor directive provides a context object that contains a
-      \`first\` get accessor. This is how we are able to use \`first\` in the
-      NgFor template. Lets build a simple structural directive that renders the
-      template provided to it and exposes a number to the created view that is
-      randomly generated with \`Math.random()\` \`\`\`ts class
-      RandomNumberContext {{ '{' }} constructor(public random: number) {{ '{'
-      }}{{ '}' }}
-      {{ '}' }}
+      ourselves. So then how do we do this? Where does the
+      <code>first</code> variable come from?
+    </p>
+    <p>
+      NgFor is a structural directive. This means that somewhere within the
+      directive's logic, it changes the DOM layout by removing or creating DOM
+      elements. In this case, NgFor creates embedded views based on the template
+      we provide and the array passed in as an <code>@Input</code>. When this
+      view is created, we have the option of exposing a context to that view.
+      The NgFor directive provides a context object that contains a
+      <code>first</code> get accessor. This is how we are able to use
+      <code>first</code> in the NgFor template.
+    </p>
+    <p>
+      Lets build a simple structural directive that renders the template
+      provided to it and exposes a number to the created view that is randomly
+      generated with
+      <code>Math.random()</code>
+    </p>
+    <div class="remark-highlight">
+      <pre
+        class="language-ts"
+      ><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">RandomNumberContext</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> random<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
 
-      @Directive({{ '{' }}
-      selector: "[appRandomNumber]",
-      {{ '}' }}) export class RandomNumberDirective implements OnInit
-      {{ '{' }} constructor( private _viewContainer: ViewContainerRef, private
-      _templateRef: TemplateRef{{ '<' }}RandomNumberContext{{ '>' }} ) {{ '{'
-      }}{{ '}' }}
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Directive</span></span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
+  selector<span class="token operator">:</span> <span class="token string">"[appRandomNumber]"</span><span class="token punctuation">,</span>
+<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RandomNumberDirective</span> <span class="token keyword">implements</span> <span class="token class-name">OnInit</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>
+    <span class="token keyword">private</span> _viewContainer<span class="token operator">:</span> ViewContainerRef<span class="token punctuation">,</span>
+    <span class="token keyword">private</span> _templateRef<span class="token operator">:</span> TemplateRef<span class="token operator">&#x3C;</span>RandomNumberContext<span class="token operator">></span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
-      ngOnInit(): void {{ '{' }}
-      // First arg is the template we passed in, second arg is a context that we
-      can provide to the view this._viewContainer.createEmbeddedView(
-      this._templateRef, new RandomNumberContext(Math.random()) );
-      {{ '}' }}
-      {{ '}' }}
-      \`\`\` \`\`\`html
-      {{ '<' }}p *appRandomNumber="let myRandomNumber = random"{{ '>' }} Your
-      random num is: {{ '{' }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }}
-      {{ '<' }}/p{{ '>' }} \`\`\` Maybe we want to access our number as a
-      percent. Lets expand our Context class in the following way, \`\`\`ts
-      class RandomNumberContext {{ '{' }} constructor(public random: number)
-      {{ '{' }}{{ '}' }}
+  <span class="token function">ngOnInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token comment">// First arg is the template we passed in, second arg is a context that we can provide to the view</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_viewContainer<span class="token punctuation">.</span><span class="token function">createEmbeddedView</span><span class="token punctuation">(</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_templateRef<span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">RandomNumberContext</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
+</code></pre>
+    </div>
+    <br />
+    <div class="remark-highlight">
+      <pre
+        class="language-html"
+      ><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>p</span> <span class="token attr-name">*appRandomNumber</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let myRandomNumber = random<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  Your random num is: {{ '{' }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+    </div>
+    <p><directive-context-demo></directive-context-demo></p>
+    <p>
+      Maybe we want to access our number as a percent. Lets expand our Context
+      class in the following way,
+    </p>
+    <div class="remark-highlight">
+      <pre
+        class="language-ts"
+      ><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">RandomNumberContext</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> random<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
-      get asPercent(): string {{ '{' }}
-      return (this.random * 100).toFixed(2) + "%";
-      {{ '}' }}
-      {{ '}' }}
-      \`\`\` \`\`\`html
-      {{ '<' }}p *appRandomNumber="let myRandomNumber = random; let
-      myRandomPercentage = asPercent"
-      {{ '>' }}
-      Your random num is: {{ '{' }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }},
-      Your random percentage is: {{ '{' }}{{ '{' }} myRandomPercentage {{ '}'
-      }}{{ '}' }} {{ '<' }}/p{{ '>' }}
-      \`\`\`
-    </markdown>
-    <pre class="server-rendered" *ngIf="!isBrowser" [innerHtml]="content"></pre>
+  <span class="token keyword">get</span> <span class="token function">asPercent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>random <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toFixed</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"%"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
+</code></pre>
+    </div>
+    <br />
+    <div class="remark-highlight">
+      <pre
+        class="language-html"
+      ><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>p</span> <span class="token attr-name">*appRandomNumber</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let myRandomNumber = random; let myRandomPercentage = asPercent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  Your random num is: {{ '{' }}{{ '{' }} myRandomNumber {{ '}' }}{{ '}' }}, Your random percentage is: {{ '{' }}{{ '{' }} myRandomPercentage {{ '}' }}{{ '}' }}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+    </div>
+    <p><directive-context-demo withGetter="true"></directive-context-demo></p>
   `,
   styles: [
     `
@@ -91,145 +136,33 @@ import { Meta } from '@angular/platform-browser';
         max-width: 800px;
         margin: 2rem auto 0;
 
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 801px) {
           max-width: calc(100% - 24px);
-        }
-      }
-
-      pre.server-rendered {
-        all: unset;
-
-        ::ng-deep {
-          pre {
-            background-color: #272822;
-            padding: 12px;
-            border-radius: 0.3rem;
-            @media screen and (max-width: 500px) {
-              margin: 0 -12px;
-              border-radius: 0;
-            }
-
-            pre {
-              padding: 1em;
-              margin: 0.5em 0;
-              overflow: auto;
-              border-radius: 0.3em;
-            }
-
-            code[class*='language-'] {
-              font-size: 0.9rem;
-              color: #5ab9ca;
-              background: none;
-              text-shadow: 0 1px rgb(0 0 0 / 30%);
-              text-align: left;
-              white-space: pre;
-              word-spacing: normal;
-              word-break: normal;
-              word-wrap: normal;
-              line-height: 1.5;
-              tab-size: 4;
-              -webkit-hyphens: none;
-              hyphens: none;
-            }
-          }
         }
       }
     `,
   ],
 })
 export class DirectiveContextComponent implements OnInit, OnDestroy {
-  isBrowser = false;
-  content = `You may recognize the usage of \`let isFirst = first\` in the following template
-
-\`\`\`html
-<div *ngFor="let event of eventQueue; let isFirst = first">
-  <button *ngIf="isFirst" (click)="pop(event)">Execute Next Event</button>
-  <h1>{{ event.name }}</h1>
-</div>
-\`\`\`
-
-It is a boolean variable exposed to the template supplied to the NgFor directive. It can be used to determine if the item rendering is the first item in the iterable passed into the directive. The example given is somewhat contrived but it should demonstrate clearly how the \`first\` variable is being used. You can read more on the [Angular.io](https://angular.io/api/common/NgForOf#local-variables) docs.
-
-The NgFor directive is not magical, it does not possess capabilites within it that are out of reach for any custom directives we may want to write ourselves. So then how do we do this? Where does the \`first\` variable come from?
-
-NgFor is a structural directive. This means that somewhere within the directive's logic, it changes the DOM layout by removing or creating DOM elements. In this case, NgFor creates embedded views based on the template we provide and the array passed in as an \`@Input\`. When this view is created, we have the option of exposing a context to that view. The NgFor directive provides a context object that contains a \`first\` get accessor. This is how we are able to use \`first\` in the NgFor template.
-
-Lets build a simple structural directive that renders the template provided to it and exposes a number to the created view that is randomly generated with \`Math.random()\`
-
-\`\`\`ts
-class RandomNumberContext {
-  constructor(public random: number) {}
-}
-
-@Directive({
-  selector: "[appRandomNumber]",
-})
-export class RandomNumberDirective implements OnInit {
-  constructor(
-    private _viewContainer: ViewContainerRef,
-    private _templateRef: TemplateRef<RandomNumberContext>
-  ) {}
-
-  ngOnInit(): void {
-    // First arg is the template we passed in, second arg is a context that we can provide to the view
-    this._viewContainer.createEmbeddedView(
-      this._templateRef,
-      new RandomNumberContext(Math.random())
-    );
-  }
-}
-\`\`\`
-
-\`\`\`html
-<p *appRandomNumber="let myRandomNumber = random">
-  Your random num is: {{ myRandomNumber }}
-</p>
-\`\`\`
-
-Maybe we want to access our number as a percent. Lets expand our Context class in the following way,
-
-\`\`\`ts
-class RandomNumberContext {
-  constructor(public random: number) {}
-
-  get asPercent(): string {
-    return (this.random * 100).toFixed(2) + "%";
-  }
-}
-\`\`\`
-
-\`\`\`html
-<p
-  *appRandomNumber="let myRandomNumber = random; let myRandomPercentage = asPercent"
->
-  Your random num is: {{ myRandomNumber }}, Your random percentage is: {{
-  myRandomPercentage }}
-</p>
-\`\`\`
-`;
-
   constructor(
     @Inject(PLATFORM_ID) public platformId: Object,
-    private markdownService: MarkdownService,
     private meta: Meta
   ) {}
 
   ngOnInit(): void {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-
-    this.meta.addTag({ property: 'oh:title', content: 'Directive Context' });
-    this.meta.addTag({ property: 'oh:type', content: 'article' });
+    this.meta.addTag({ property: 'og:title', content: 'Directive Context' });
+    this.meta.addTag({ property: 'og:type', content: 'article' });
     this.meta.addTag({
-      property: 'oh:url',
+      property: 'og:url',
       content:
         'https://aleksanderbodurri-eefbe.web.app/posts/directive-context',
     });
     this.meta.addTag({
-      property: 'oh:image',
+      property: 'og:image',
       content: 'http://aleksanderbodurri-eefbe.web.app/assets/me.png',
     });
     this.meta.addTag({
-      property: 'oh:image:secure_url',
+      property: 'og:image:secure_url',
       content: 'https://aleksanderbodurri-eefbe.web.app/assets/me.png',
     });
 
@@ -246,10 +179,6 @@ class RandomNumberContext {
         content:
           'blog,post,Angular,angular,angular directive,context,directive',
       });
-    }
-
-    if (!this.isBrowser) {
-      this.content = this.markdownService.compile(this.content);
     }
   }
 
@@ -280,7 +209,10 @@ class RandomNumberContext {
         component: DirectiveContextComponent,
       },
     ]),
-    MarkdownModule.forChild(),
+    CodeBlockComponent,
+    CodeTabsComponent,
+    DirectiveContextDemoComponent,
+    HelloWorldComponent,
   ],
   declarations: [DirectiveContextComponent],
   bootstrap: [],

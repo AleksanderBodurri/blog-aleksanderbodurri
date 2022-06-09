@@ -1,6 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { MarkdownService } from 'ngx-markdown';
+import { Component, Input } from '@angular/core';
 import { Post } from '../routes/posts/define-post';
 
 @Component({
@@ -16,17 +14,7 @@ import { Post } from '../routes/posts/define-post';
             {{ post.date | date }}
           </h1>
         </header>
-        <section>
-          <markdown *ngIf="isBrowser" lineNumbers ngPreserveWhitespaces>
-            {{ post.summary }}
-          </markdown>
-
-          <pre
-            class="server-rendered"
-            *ngIf="!isBrowser"
-            [innerHtml]="compiledSummary"
-          ></pre>
-        </section>
+        <section [innerHtml]="post.summary"></section>
       </article>
     </a>
   `,
@@ -67,25 +55,8 @@ import { Post } from '../routes/posts/define-post';
     `,
   ],
 })
-export class PostCardComponent implements OnInit {
+export class PostCardComponent {
   @Input() post: Post | undefined = undefined;
-  isBrowser = false;
-  compiledSummary = '';
-
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private markdownService: MarkdownService
-  ) {}
-
-  ngOnInit(): void {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-
-    if (!this.isBrowser) {
-      this.compiledSummary = this.markdownService.compile(
-        this.post?.summary ?? ''
-      );
-    }
-  }
 
   scrollToTop(): void {
     (window as any).scrollTo(0, 0);

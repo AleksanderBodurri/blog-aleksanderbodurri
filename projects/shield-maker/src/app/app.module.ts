@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [AppComponent, CanvasComponent],
   imports: [
+    CommonModule,
     RouterModule.forChild([
       {
         path: '',
@@ -27,11 +28,9 @@ import { RouterModule } from '@angular/router';
         component: AppComponent,
       },
     ]),
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    HttpClientModule,
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,

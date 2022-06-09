@@ -10,7 +10,8 @@ export class Post {
     public slug: string,
     public summary: string,
     public contentPaths: string[],
-    private _tags: string[]
+    private _tags: string[],
+    public codeblocks: { [key: string]: string }
   ) {
     this._tags.forEach((tag) => this.tags.add(tag));
   }
@@ -26,14 +27,23 @@ const definePost = (
   slug: string,
   sectionNames: string[],
   tags: string[],
-  summary: string
+  summary: string,
+  codeblocks: { [key: string]: string }
 ) => {
   const contentPaths: string[] = sectionNames.map((sectionName) => {
     return `assets/md/${slug}/${sectionName}.md`;
   });
 
   posts.push(
-    new Post(new Date(date), title, slug, summary, contentPaths, tags)
+    new Post(
+      new Date(date),
+      title,
+      slug,
+      summary,
+      contentPaths,
+      tags,
+      codeblocks
+    )
   );
 };
 
@@ -44,7 +54,8 @@ postMetaData.forEach((post) => {
     post.slug,
     post.sectionNames,
     post.tags,
-    post.summary
+    post.summary,
+    post.codeblocks
   );
 });
 

@@ -49,10 +49,6 @@ export class AppComponent implements OnInit, OnDestroy {
     link.rel = 'stylesheet';
     this.doc.head.appendChild(link);
 
-    if (!window) {
-      return;
-    }
-
     this.lookUpIcon.pipe(debounceTime(250)).subscribe((iconLabel) => {
       this.customSvgFile = null;
       this.shieldService.svgAsString.next('');

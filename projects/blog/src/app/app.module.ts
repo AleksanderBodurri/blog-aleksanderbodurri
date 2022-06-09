@@ -1,12 +1,10 @@
-import { APP_ID, SecurityContext } from '@angular/core';
+import { APP_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './routes/landing/landing.component';
 import { NavbarComponent } from './utility/navbar.component';
 import { PostsComponent } from './routes/posts/posts.component';
-import { MarkdownModule } from 'ngx-markdown';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PostCardComponent } from './utility/post-card.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -15,6 +13,7 @@ import { GENERATED_ROUTES } from './generated-routes';
 import { AboutComponent } from './routes/about/about.component';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 const defaultTitle = 'Aleksander Bodurri | Blog';
 
@@ -70,12 +69,8 @@ export class AppRoutingModule {}
     BrowserAnimationsModule,
     QuicklinkModule,
     AppRoutingModule,
-    HttpClientModule,
-    MarkdownModule.forRoot({
-      loader: HttpClient,
-      sanitize: SecurityContext.NONE,
-    }),
     RouterModule,
+    HttpClientModule,
   ],
   providers: [
     {

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 
 const navBarStyles = `
   blog-navbar {
@@ -36,7 +38,20 @@ const mainStyles = `
   `,
   styles: [mainStyles, navBarStyles],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Aleksander Bodurri';
   year = new Date();
+
+  constructor(
+    private _router: Router,
+    @Inject(DOCUMENT) private doc: Document
+  ) {}
+
+  ngOnInit(): void {
+    this._router.events.subscribe((e) => {
+      if (!(e instanceof NavigationStart)) {
+        return;
+      }
+    });
+  }
 }

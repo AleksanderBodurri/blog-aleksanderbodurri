@@ -40,10 +40,8 @@ You may have already tried inspecting the html source of this page. If you haven
 
 ```html
 <blog-root _nghost-one-framework-to-rule-them-all-c18 ng-version="...">
-  <blog-navbar _ngcontent-one-framework-to-rule-them-all-c18>
-    ...</blog-navbar
-  ></blog-root
->
+  <blog-navbar _ngcontent-one-framework-to-rule-them-all-c18> ... </blog-navbar>
+</blog-root>
 ```
 
 In place of a randomly generated application ID there is a string "one-framework-to-rule-them-all". How did that happen?

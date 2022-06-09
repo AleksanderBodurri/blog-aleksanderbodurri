@@ -39,11 +39,15 @@ export class RandomNumberDirective implements OnInit {
 }
 ```
 
+<br>
+
 ```html
 <p *appRandomNumber="let myRandomNumber = random">
   Your random num is: {{ myRandomNumber }}
 </p>
 ```
+
+<directive-context-demo></directive-context-demo>
 
 Maybe we want to access our number as a percent. Lets expand our Context class in the following way,
 
@@ -57,6 +61,8 @@ class RandomNumberContext {
 }
 ```
 
+<br>
+
 ```html
 <p
   *appRandomNumber="let myRandomNumber = random; let myRandomPercentage = asPercent"
@@ -65,3 +71,5 @@ class RandomNumberContext {
   myRandomPercentage }}
 </p>
 ```
+
+<directive-context-demo withGetter="true"></directive-context-demo>

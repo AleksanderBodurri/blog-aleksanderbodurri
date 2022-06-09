@@ -3,6 +3,14 @@ import { Routes } from '@angular/router';
 
 export const GENERATED_ROUTES: Routes = [
   {
+    path: 'posts/angular-components-in-markdown',
+    title: 'Angular Components in Markdown | Aleksander Bodurri | Blog',
+    loadChildren: () =>
+      import(
+        './generated-route-modules/angular-components-in-markdown.module'
+      ).then((m) => m.LazyModule),
+  },
+  {
     path: 'posts/nghost',
     title:
       'Why are there _nghost attributes all over my HTML? | Aleksander Bodurri | Blog',
