@@ -1,5 +1,27 @@
+<img
+  class="hidden-image"
+  inert
+  fetchpriority="high"
+  src="assets/angular.svg"
+  alt="The Angular logo."
+/>
+<img
+  class="hidden-image"
+  inert
+  fetchpriority="low"
+  src="assets/alex-lq-small.webp"
+  alt="The Angular logo."
+/>
+<img
+  class="hidden-image"
+  inert
+  fetchpriority="low"
+  src="assets/alex-hq-small.webp"
+  alt="The Angular logo."
+/>
+
 <div *ngIf="isBrowser" class="author-name" aria-label="Aleksander Bodurri">
-  <img src="assets/angular.svg" alt="The Angular logo." />
+  <img id="animated-logo" src="assets/angular.svg" alt="The Angular logo." />
   <div class="partial-name">
     <h1
       aria-label="The name Aleksander Bodurri but with the A missing. The Angular Logo in the previous line acts as the A"
@@ -13,14 +35,16 @@
   <aside>
     <figure>
       <picture>
-        <source srcset="assets/alex-compressed.webp" type="image/webp" />
-        <source srcset="assets/alex-hq-small.webp" type="image/webp" />
-        <source srcset="assets/alex.png" type="image/png" />
+        <!-- <source srcset="assets/alex-lq-small.webp" type="image/webp" /> -->
+        <!-- <source srcset="assets/alex-hq-small.webp" type="image/webp" /> -->
+        <!-- <source srcset="assets/alex.png" type="image/png" /> -->
         <img
+          #authorImage
           width="208"
           height="224"
           fetchpriority="high"
-          class="author"
+          class="author no-quality"
+          src="assets/alex-nq-small.webp"
           alt="A picture of Alex Bodurri"
         />
       </picture>

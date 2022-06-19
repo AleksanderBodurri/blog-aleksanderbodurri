@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ShieldService } from '../shield.service';
@@ -131,12 +138,18 @@ export class CanvasComponent implements OnInit {
 
   customSvgIcon: SafeHtml | null = null;
 
+  isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   constructor(
     public shieldService: ShieldService,
     private domSanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
     this.shieldService.icon.subscribe(
       () => (this.namespace = this.shieldService.namespace())
     );
@@ -183,10 +196,39 @@ export class CanvasComponent implements OnInit {
     });
   }
 
+  sanitizeXML(elements: Element[]) {
+    elements.forEach((element: Element) => {
+      let ngAttributes: string[] = [];
+      let ngClasses: string[] = [];
+
+      for (let i = 0; i < element.attributes.length; i++) {
+        const name = element.attributes[i].name;
+        if (name.startsWith('_ng')) {
+          ngAttributes.push(name);
+        } else if (name.startsWith('ng')) {
+          ngAttributes.push(name);
+        }
+      }
+
+      for (let i = 0; i < element.classList.length; i++) {}
+
+      element.classList.forEach(
+        (className) => className.startsWith('ng') && ngClasses.push(className)
+      );
+
+      ngAttributes.forEach((attribute) =>
+        element.attributes.removeNamedItem(attribute)
+      );
+      ngClasses.forEach((className) => element.classList.remove(className));
+      this.sanitizeXML(Array.from(element.children));
+    });
+  }
+
   export() {
-    const xmlString = new XMLSerializer().serializeToString(
-      this.svgToExport.nativeElement
-    );
+    const clone = this.svgToExport.nativeElement.cloneNode(true);
+    this.sanitizeXML([clone]);
+
+    const xmlString = new XMLSerializer().serializeToString(clone);
     const downloadLink = document.createElement('a');
 
     downloadLink.download = `shield.svg`;

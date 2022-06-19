@@ -6,6 +6,7 @@ body {
 html,
 body {
   height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
@@ -68,6 +69,23 @@ pre {
   }
 }
 
+p {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+ng-me-nghost,
+ng-me-directive-context,
+ng-me-angular-components-in-markdown {
+  display: block;
+  max-width: 800px;
+  margin: 2rem auto 0;
+
+  @media screen and (max-width: 801px) {
+    max-width: calc(100% - 24px);
+  }
+}
+
 blog-navbar {
   display: block;
   position: fixed;
@@ -84,7 +102,7 @@ blog-navbar {
     box-sizing: border-box;
     padding: 0 16px;
     white-space: nowrap;
-    background: #3f51b5;
+    background: #232323;
     font-weight: 500;
     font-size: 20px;
     line-height: 32px;
@@ -115,11 +133,21 @@ blog-navbar {
         }
 
         img {
-          position: relative;
-          top: 3px;
           aspect-ratio: 1;
-          width: 30px;
+          width: 25px;
           filter: contrast(0) brightness(2);
+        }
+      }
+    }
+
+    .icon-links {
+      a {
+        height: 25px;
+        width: 25px;
+        &.twitter-icon {
+          img {
+            aspect-ratio: 1.2 / 1;
+          }
         }
       }
     }
@@ -131,25 +159,32 @@ body {
   height: 100%;
 }
 
-body {
-  --background-color: rgba(0, 0, 255, 0.03);
-  --background-color-accent: transparent;
-  --background-grid-length: 5px;
-  --background-grid-degree: 45deg;
+#overlay {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: url(assets/particles.gif);
+  background-size: contain;
+  filter: blur(20px);
+  opacity: 0.25;
+}
 
+body {
   margin: 0;
   padding-top: 64px;
   height: calc(100% - 64px);
-  background: repeating-linear-gradient(
-      calc(-1 * var(--background-grid-degree)),
-      var(--background-color),
-      var(--background-color-accent) var(--background-grid-length)
-    ),
-    repeating-linear-gradient(
-      var(--background-grid-degree),
-      var(--background-color),
-      var(--background-color-accent) var(--background-grid-length)
-    );
+  background: linear-gradient(
+    296deg,
+    #2196f3 0%,
+    #03a9f47a 30%,
+    #00968847 45%,
+    #b73a9b61 60%,
+    #ff572261 70%,
+    #ffffff8c 100%
+  );
+  background-attachment: fixed;
 }
 
 /*

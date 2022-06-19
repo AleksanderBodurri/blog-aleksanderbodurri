@@ -69,9 +69,11 @@ figure {
 
   .author {
     width: 200px;
-    border-radius: 50%;
     padding: 4px 4px 0;
-    background: rgb(0 0 255 / 3%);
+
+    &.no-quality {
+      filter: brightness(0);
+    }
 
     @media screen and (max-width: 800px) {
       display: none;
@@ -106,7 +108,7 @@ $author-name-margin: 65px;
     display: none;
   }
 
-  @keyframes big-boi {
+  @keyframes big {
     from {
       transform: scale(1) rotateY(0deg);
     }
@@ -120,7 +122,7 @@ $author-name-margin: 65px;
     }
   }
 
-  --slide-width: 543.1px;
+  --slide-width: 544px;
 
   @media (max-width: 1000px) {
     --slide-width: 146px;
@@ -144,20 +146,18 @@ $author-name-margin: 65px;
     display: inline-flex;
     position: relative;
     bottom: 26px;
-    height: 65px;
+    height: 100px;
     align-items: center;
     overflow: hidden;
-    animation: slide-in 3s;
   }
 
-  img {
+  img#animated-logo {
     display: inline-block;
     width: 100px;
     aspect-ratio: 1;
     position: relative;
     z-index: 1000;
     left: 24px;
-    animation: big-boi 2s;
 
     @media screen and (max-width: 1000px) {
       width: 60px;
@@ -176,4 +176,8 @@ $author-name-margin: 65px;
 :host {
   display: block;
   height: calc(100% - 100px);
+}
+
+.hidden-image {
+  display: none;
 }

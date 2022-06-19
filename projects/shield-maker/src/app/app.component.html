@@ -1,8 +1,9 @@
 <header>Shield Maker</header>
-<section>
-  <div class="colors">
+<section id="shield-maker">
+  <div class="colors" [class.hidden]="!isBrowser">
     <div class="color-input">
       <button
+        aria-label="Random primary color."
         mat-icon-button
         (click)="shieldService.primary.next(generateRandomColor())"
       >
@@ -20,6 +21,7 @@
 
     <div class="color-input">
       <button
+        aria-label="Random icon color."
         mat-icon-button
         (click)="shieldService.iconColor.next(generateRandomColor())"
       >
@@ -37,6 +39,7 @@
 
     <div class="color-input">
       <button
+        aria-label="Random secondary color."
         mat-icon-button
         (click)="shieldService.secondary.next(generateRandomColor())"
       >
@@ -53,7 +56,11 @@
     </div>
 
     <div class="color-input">
-      <button mat-icon-button (click)="randomInputs()">
+      <button
+        aria-label="Randomize all colors."
+        mat-icon-button
+        (click)="randomInputs()"
+      >
         <mat-icon>casino</mat-icon>
       </button>
     </div>
@@ -61,7 +68,7 @@
   <div class="canvas">
     <shield-maker-canvas *ngIf="loaded"></shield-maker-canvas>
   </div>
-  <div class="palette">
+  <div class="palette" [class.hidden]="!isBrowser">
     <label class="custom-icon">
       Custom Icon
       <br />

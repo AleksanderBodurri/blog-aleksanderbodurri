@@ -1,0 +1,24 @@
+<div class="remark-highlight">
+  <pre
+    class="language-ts"
+  ><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> OnInit<span class="token punctuation">,</span> Input <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@angular/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> posts <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../routes/posts/define-post"</span><span class="token punctuation">;</span>
+
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Component</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  selector<span class="token operator">:</span> <span class="token string">"code-block"</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&#x3C;div [innerHtml]="post">&#x3C;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  standalone<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CodeBlockComponent</span> <span class="token keyword">implements</span> <span class="token class-name">OnInit</span> <span class="token punctuation">{</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Input</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> src <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Input</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> slug <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  post<span class="token operator">:</span> <span class="token builtin">any</span> <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+  <span class="token function">ngOnInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>post <span class="token operator">=</span> posts<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span>post<span class="token punctuation">)</span> <span class="token operator">=></span> post<span class="token punctuation">.</span>slug <span class="token operator">===</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slug<span class="token punctuation">)</span><span class="token operator">?.</span>codeblocks<span class="token punctuation">[</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>src
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>

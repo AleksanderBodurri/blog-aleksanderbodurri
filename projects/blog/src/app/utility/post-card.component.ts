@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Post } from '../routes/posts/define-post';
+import { Post } from '../ng-me/define-post';
 
 @Component({
   selector: 'blog-post-card',
@@ -11,7 +11,7 @@ import { Post } from '../routes/posts/define-post';
             {{ post.title }}
           </h1>
           <h1 class="date">
-            {{ post.date | date }}
+            <!-- {{ post.date }} -->
           </h1>
         </header>
         <section [innerHtml]="post.summary"></section>
@@ -30,15 +30,22 @@ import { Post } from '../routes/posts/define-post';
       }
 
       .blog-post-card-link {
-        border: 1px solid #e8e8e8;
+        border: 1px solid black;
         display: block;
         padding: 1rem;
-        background: #fff;
+        color: #000;
+        transition: backdrop-filter 500ms ease-in-out;
+        backdrop-filter: hue-rotate(45deg);
+
+        &:hover {
+          backdrop-filter: hue-rotate(135deg);
+        }
 
         header {
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px solid #e8e8e8;
+          border-bottom: 1px solid #000;
+          padding-bottom: 8px;
 
           h1 {
             font-size: 1.25rem;

@@ -10,19 +10,23 @@ import { Component } from '@angular/core';
         <!-- <a class="about" routerLink="about">About</a> -->
         <a class="shield-maker" routerLink="shield-maker">Shield-Maker</a>
       </div>
-      <div class="links">
+      <div class="icon-links links">
         <a target="_blank" href="https://github.com/AleksanderBodurri">
-          <img src="assets/github.svg" alt="A link to Aleksander's Github" />
+          <img src="assets/github.webp" alt="A link to Aleksander's Github" />
         </a>
-        <a target="_blank" href="https://twitter.com/alexbodurri">
-          <img src="assets/twitter.svg" alt="A link to Aleksander's Twitter" />
+        <a
+          class="twitter-icon"
+          target="_blank"
+          href="https://twitter.com/alexbodurri"
+        >
+          <img src="assets/twitter.webp" alt="A link to Aleksander's Twitter" />
         </a>
         <a
           target="_blank"
           href="https://www.linkedin.com/in/aleksander-bodurri-6b7167145"
         >
           <img
-            src="assets/linked-in.png"
+            src="assets/linked-in.webp"
             alt="A link to Aleksander's Twitter"
           />
         </a>

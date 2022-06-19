@@ -20,8 +20,6 @@ export class ShieldService {
 
   svgAsString = new BehaviorSubject('');
 
-  constructor(private _httpClient: HttpClient) {}
-
   namespace(): string {
     return `${this.style.value}/${this.icon.value}/v${this.version.value}/${this.size.value}px.svg`;
   }

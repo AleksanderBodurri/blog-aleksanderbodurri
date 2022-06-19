@@ -9,7 +9,7 @@ import { PostCardComponent } from './utility/post-card.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { GENERATED_ROUTES } from './generated-routes';
+import { GENERATED_ROUTES } from './ng-me/generated-routes';
 import { AboutComponent } from './routes/about/about.component';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

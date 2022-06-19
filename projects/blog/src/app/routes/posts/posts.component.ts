@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { posts } from './define-post';
+import { posts } from '../../ng-me/define-post';
 
 @Component({
   selector: 'blog-posts',

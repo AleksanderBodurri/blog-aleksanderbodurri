@@ -1,11 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
-const navBarStyles = `
-  blog-navbar {
-  }
-`;
 const mainStyles = `
   main {
     overflow-x: auto;
@@ -15,7 +11,9 @@ const mainStyles = `
       
       p {
         text-align: center;
-        color: #aaaaaa;
+        font-weight: 400;
+        font-size: 16px;
+        color: #000;
       }
     }
   }
@@ -36,7 +34,7 @@ const mainStyles = `
       </footer>
     </main>
   `,
-  styles: [mainStyles, navBarStyles],
+  styles: [mainStyles],
 })
 export class AppComponent implements OnInit {
   title = 'Aleksander Bodurri';
@@ -44,10 +42,19 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
+    const isBrowser = isPlatformBrowser(this.platformId);
+
+    if (isBrowser) {
+      const overlay = this.doc.createElement('div');
+      overlay.id = 'overlay';
+      this.doc.body.append(overlay);
+    }
+
     this._router.events.subscribe((e) => {
       if (!(e instanceof NavigationStart)) {
         return;

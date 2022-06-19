@@ -1,0 +1,124 @@
+<div class="remark-highlight">
+  <pre
+    class="language-ts"
+  ><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  AfterViewInit<span class="token punctuation">,</span>
+  Component<span class="token punctuation">,</span>
+  ElementRef<span class="token punctuation">,</span>
+  Input<span class="token punctuation">,</span>
+  OnInit<span class="token punctuation">,</span>
+  ViewChild<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@angular/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CommonModule <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@angular/common"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CodeBlockComponent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../code-block/code-block.component"</span><span class="token punctuation">;</span>
+
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Component</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  selector<span class="token operator">:</span> <span class="token string">"code-tabs"</span><span class="token punctuation">,</span>
+  standalone<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  imports<span class="token operator">:</span> <span class="token punctuation">[</span>CommonModule<span class="token punctuation">,</span> CodeBlockComponent<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string"></span>
+<span class="token string">    &#x3C;div #headerContent style="display: none"></span>
+<span class="token string">      &#x3C;div id="code-headers"></span>
+<span class="token string">        &#x3C;ng-content select="[code-headers]">&#x3C;/ng-content></span>
+<span class="token string">      &#x3C;/div></span>
+<span class="token string">    &#x3C;/div></span>
+<span class="token string">    &#x3C;div class="tab-group"></span>
+<span class="token string">      &#x3C;header></span>
+<span class="token string">        &#x3C;ol role="tablist" #tabList></span>
+<span class="token string">          &#x3C;li</span>
+<span class="token string">            class="header"</span>
+<span class="token string">            id="header-{{ index }}"</span>
+<span class="token string">            [class.selected]="headers[this.selectedIndex] === header"</span>
+<span class="token string">            tabindex="0"</span>
+<span class="token string">            role="tab"</span>
+<span class="token string">            *ngFor="let header of headers; let index = index"</span>
+<span class="token string">            (keydown.enter)="selectTab(index)"</span>
+<span class="token string">            (click)="selectTab(index)"</span>
+<span class="token string">          ></span>
+<span class="token string">            {{ header }}</span>
+<span class="token string">          &#x3C;/li></span>
+<span class="token string">        &#x3C;/ol></span>
+<span class="token string">        &#x3C;div class="highlight-track"></span>
+<span class="token string">          &#x3C;div #highlight class="highlight">&#x3C;/div></span>
+<span class="token string">        &#x3C;/div></span>
+<span class="token string">      &#x3C;/header></span>
+<span class="token string">      &#x3C;section #tabContent></span>
+<span class="token string">        &#x3C;ng-content select="[tabs]">&#x3C;/ng-content></span>
+<span class="token string">      &#x3C;/section></span>
+<span class="token string">    &#x3C;/div></span>
+<span class="token string">  </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  styleUrls<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"./code-tabs.component.scss"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CodeTabsComponent</span> <span class="token keyword">implements</span> <span class="token class-name">OnInit</span><span class="token punctuation">,</span> AfterViewInit <span class="token punctuation">{</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ViewChild</span></span><span class="token punctuation">(</span><span class="token string">"headerContent"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token keyword">static</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> headerContent<span class="token operator">:</span>
+    <span class="token operator">|</span> ElementRef<span class="token operator">&#x3C;</span>HTMLElement<span class="token operator">></span>
+    <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ViewChild</span></span><span class="token punctuation">(</span><span class="token string">"tabContent"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token keyword">static</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> tabContent<span class="token operator">:</span>
+    <span class="token operator">|</span> ElementRef<span class="token operator">&#x3C;</span>HTMLElement<span class="token operator">></span>
+    <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ViewChild</span></span><span class="token punctuation">(</span><span class="token string">"highlight"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token keyword">static</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> highlight<span class="token operator">:</span>
+    <span class="token operator">|</span> ElementRef<span class="token operator">&#x3C;</span>HTMLDivElement<span class="token operator">></span>
+    <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ViewChild</span></span><span class="token punctuation">(</span><span class="token string">"tabList"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token keyword">static</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> tabList<span class="token operator">:</span>
+    <span class="token operator">|</span> ElementRef<span class="token operator">&#x3C;</span>HTMLElement<span class="token operator">></span>
+    <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Input</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> height<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+
+  headers<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  selectedIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token function">ngOnInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> contentElem <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>headerContent<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>headers <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>
+      contentElem<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">"#code-headers li"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span> <span class="token operator">=></span> li<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">!==</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tabContent<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>
+        <span class="token string">"height-set"</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tabContent<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">ngAfterViewInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectTab</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">selectTab</span><span class="token punctuation">(</span>index<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>selectedIndex <span class="token operator">=</span> index<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> tabContentElement <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>tabContent<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> listElements <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>
+      tabContentElement<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">"ol[tabs] li"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span> <span class="token keyword">as</span> HTMLElement<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    listElements<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> elementIndex<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>selectedIndex <span class="token operator">===</span> elementIndex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"block"</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> tabListElement <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>tabList<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> liElements <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>
+      tabListElement<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">"li.header"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span> <span class="token keyword">as</span> HTMLElement<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> xoffset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> liElement <span class="token keyword">of</span> liElements<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>liElement <span class="token operator">===</span> liElements<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      xoffset <span class="token operator">+=</span> liElement<span class="token punctuation">.</span>clientWidth<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> highlight <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>highlight<span class="token operator">!</span><span class="token punctuation">.</span>nativeElement <span class="token keyword">as</span> HTMLElement<span class="token punctuation">;</span>
+    highlight<span class="token punctuation">.</span>style<span class="token punctuation">.</span>left <span class="token operator">=</span> xoffset <span class="token operator">+</span> <span class="token string">"px"</span><span class="token punctuation">;</span>
+    highlight<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> liElements<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>clientWidth <span class="token operator">+</span> <span class="token string">"px"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>

@@ -1,0 +1,16 @@
+<div class="remark-highlight">
+  <pre
+    class="language-ts"
+  ><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@angular/core"</span><span class="token punctuation">;</span>
+
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Component</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  selector<span class="token operator">:</span> <span class="token string">"hello-world"</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">{{ foo }} &#x3C;br /></span>
+<span class="token string">    &#x3C;ng-content>&#x3C;/ng-content></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  standalone<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorldComponent</span> <span class="token punctuation">{</span>
+  foo <span class="token operator">=</span> <span class="token string">"hello world"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>

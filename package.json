@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve blog",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -11,12 +11,13 @@
     "serve:ssr": "node dist/blog/server/main.js",
     "build:ssr": "ng build && ng run blog:server",
     "prerender": "ng run blog:prerender",
-    "static-build": "node projects/blog/src/scripts/generate-docs.mjs",
+    "static-build": "node projects/blog/src/scripts/generate.mjs",
     "prepare": "husky install",
     "deploy": "yarn static-build && ng deploy"
   },
   "private": true,
   "dependencies": {
+    "@aleksanderbodurri/ng-me": "0.0.13",
     "@angular/animations": "^14.0.0",
     "@angular/cdk": "13.3.7",
     "@angular/common": "^14.0.0",
@@ -32,6 +33,7 @@
     "@nguniversal/express-engine": "14.0.0",
     "express": "^4.15.2",
     "ngx-quicklink": "^0.2.7",
+    "parse-md": "^3.0.3",
     "prettier": "^2.6.2",
     "rehype-format": "^4.0.1",
     "rehype-prism": "^2.1.2",

@@ -1,10 +1,11 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  inject,
   Inject,
   OnDestroy,
   OnInit,
-  ViewEncapsulation,
+  PLATFORM_ID,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   mode: 'material' | 'custom' = 'material';
 
   customSvgFile: File | null = null;
+  isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(
     private _iconRegistry: MatIconRegistry,
@@ -43,6 +45,11 @@ export class AppComponent implements OnInit, OnDestroy {
     link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
     link.rel = 'stylesheet';
     this.doc.head.appendChild(link);
+
+    if (!this.isBrowser) {
+      return;
+    }
+
     link = this.doc.createElement('link');
     link.id = 'lazy-load-material';
     link.href = '/shield-maker-styles.css';
@@ -72,6 +79,13 @@ export class AppComponent implements OnInit, OnDestroy {
         map((value: any) => this._filter(value))
       )
       .subscribe((res) => {
+        const panel = this.doc.querySelector(
+          '.cdk-overlay-container .mat-autocomplete-panel'
+        );
+        if (panel) {
+          panel.scrollTop = 0;
+        }
+
         this.filteredOptions = res;
       });
 
@@ -90,14 +104,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const matIconLink = this.doc.querySelector('#lazy-load-material-icons');
+    const matIconLink = this.doc.querySelectorAll('#lazy-load-material-icons');
     if (matIconLink) {
-      matIconLink.remove();
+      matIconLink.forEach((e) => e.remove());
     }
 
-    const materialLink = this.doc.querySelector('#lazy-load-material');
+    const materialLink = this.doc.querySelectorAll('#lazy-load-material');
     if (materialLink) {
-      materialLink.remove();
+      materialLink.forEach((e) => e.remove());
     }
   }
 
@@ -112,9 +126,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
 
-    return this.shieldService.materialIconNames.filter((option) =>
-      option.toLowerCase().startsWith(filterValue)
-    );
+    return this.shieldService.materialIconNames.sort((optionA, optionB) => {
+      const optionAMatch = optionA.toLowerCase().startsWith(filterValue);
+      const optionBMatch = optionB.toLowerCase().startsWith(filterValue);
+      return Number(optionBMatch) - Number(optionAMatch);
+    });
   }
 
   getMaterialUrl(): string {

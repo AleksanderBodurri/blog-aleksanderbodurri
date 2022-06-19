@@ -179,8 +179,8 @@
             "prerender": true,
             "ssr": false,
             "browserTarget": "blog:build:production",
-            "firebaseProject": "aleksanderbodurri-eefbe",
-            "firebaseHostingSite": "aleksanderbodurri-eefbe",
+            "firebaseProject": "blog-ec6ca",
+            "firebaseHostingSite": "blog-ec6ca",
             "serverTarget": "blog:server:production",
             "prerenderTarget": "blog:prerender:production"
           }

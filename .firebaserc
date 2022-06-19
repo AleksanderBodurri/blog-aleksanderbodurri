@@ -1,9 +1,9 @@
 {
   "targets": {
-    "aleksanderbodurri-eefbe": {
+    "blog-ec6ca": {
       "hosting": {
         "blog": [
-          "aleksanderbodurri-eefbe"
+          "blog-ec6ca"
         ]
       }
     }
