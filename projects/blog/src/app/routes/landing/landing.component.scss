@@ -11,10 +11,6 @@ section {
     flex-direction: column;
   }
 
-  aside {
-    width: 280px;
-  }
-
   article {
     width: 100%;
 
@@ -49,6 +45,19 @@ section {
         color: #4da1ff;
       }
     }
+  }
+}
+
+ul {
+  list-style: none;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
+
+  li {
+    font-size: 0.75rem;
+    text-align: center;
   }
 }
 

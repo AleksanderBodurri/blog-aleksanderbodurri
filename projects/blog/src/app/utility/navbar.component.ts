@@ -15,11 +15,11 @@ import { Component } from '@angular/core';
           <img src="assets/github.webp" alt="A link to Aleksander's Github" />
         </a>
         <a
-          class="twitter-icon"
+          class="BlueSky-icon"
           target="_blank"
-          href="https://twitter.com/alexbodurri"
+          href="https://bsky.app/profile/abodurri.bsky.social"
         >
-          <img src="assets/twitter.webp" alt="A link to Aleksander's Twitter" />
+          <img src="assets/BlueSky.webp" alt="A link to Aleksander's BlueSky" />
         </a>
         <a
           target="_blank"
@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
         >
           <img
             src="assets/linked-in.webp"
-            alt="A link to Aleksander's Twitter"
+            alt="A link to Aleksander's BlueSky"
           />
         </a>
       </div>
