@@ -1,7 +1,7 @@
 section {
   display: flex;
   width: 75%;
-  height: 100%;
+  height: calc(100% - 120px);
   max-width: 1000px;
   align-items: center;
   margin: auto;
@@ -100,7 +100,7 @@ $author-name-margin: 65px;
 
 .author-name {
   display: block;
-  height: cacl($author-name-height + $author-name-margin);
+  height: calc($author-name-height + $author-name-margin);
   position: absolute;
   width: 100%;
   text-align: center;
