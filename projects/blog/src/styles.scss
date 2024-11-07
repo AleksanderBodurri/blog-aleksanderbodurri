@@ -170,19 +170,29 @@ body {
   filter: blur(20px);
   opacity: 0.25;
 }
-
 body {
+  --electric-violet: oklch(53.18% 0.28 296.97 / 0.6);
+  --french-violet: oklch(47.66% 0.246 305.88 / 0.65);
+  --vivid-pink: oklch(69.02% 0.277 332.77 / 0.7);
+  --hot-pink: oklch(59.91% 0.239 8.14 / 0.75);
+  --hot-red: oklch(61.42% 0.238 15.34 / 0.8);
+  --orange-red: oklch(63.32% 0.24 31.68 / 0.5);
+
+  --bright-blue: oklch(51.01% 0.274 263.83 / 0.55);
+  --indigo-blue: oklch(51.64% 0.229 281.65 / 0.55);
+  --super-green: oklch(79.12% 0.257 155.13 / 0.55);
+
   margin: 0;
   padding-top: 64px;
   height: calc(100% - 64px);
   background: linear-gradient(
-    296deg,
-    #2196f3 0%,
-    #03a9f47a 30%,
-    #00968847 45%,
-    #b73a9b61 60%,
-    #ff572261 70%,
-    #ffffff8c 100%
+    217deg,
+    var(--bright-blue) 0%,
+    var(--indigo-blue) 30%,
+    var(--super-green) 45%,
+    var(--bright-blue) 60%,
+    var(--indigo-blue) 70%,
+    var(--super-green) 100%
   );
   background-attachment: fixed;
 }
